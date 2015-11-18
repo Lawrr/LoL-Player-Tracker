@@ -3,9 +3,16 @@ using System.Windows.Forms;
 
 namespace LoLPlayerTracker {
     static class Program {
-        // The form which is opened by clicking the tray icon
+        // Constants
+        public static string ProgramName { get; private set; } = "LoL Player Tracker";
+        public static string LeagueProcessName { get; private set; } = "League of Legends";
+        public static string ClientProcessName { get; private set; } = "LolClient";
+
+        // Global Objects
         public static MainForm MainForm { get; private set; }
+        public static Tray Tray { get; private set; }
         public static DatabaseManager DatabaseManager { get; private set; }
+        public static GameTracker GameTracker { get; private set; }
 
         /// <summary>
         /// The main entry point for the application.
@@ -15,10 +22,14 @@ namespace LoLPlayerTracker {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            // Init objects
             MainForm = new MainForm();
+            Tray = new Tray();
             DatabaseManager = new DatabaseManager("db.sqlite", 3);
+            GameTracker = new GameTracker();
 
-            Application.Run(MainForm);
+            // Start application
+            Application.Run();
         }
     }
 }

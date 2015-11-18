@@ -1,21 +1,39 @@
 ﻿using System;
 using System.Data.SQLite;
+using System.IO;
 
 namespace LoLPlayerTracker {
-    class DatabaseManager {
+    public class DatabaseManager {
 
         public SQLiteConnection dbConnection;
 
         public DatabaseManager(string dbName, int dbVersion) {
             Console.WriteLine("Hello i am the database manager");
 
-            CreateDatabase(dbName);
+            InitDb(dbName, dbVersion);
+        }
 
+        public void InitDb(string dbName, int dbVersion) {
+            // Create database if it does not exist
+            bool newDb = false;
+            if (!File.Exists(dbName)) {
+                newDb = true;
+                CreateDatabase(dbName);
+                Console.WriteLine("Created database");
+            }
+
+            // Create connection
             dbConnection = new SQLiteConnection("Data Source=" + dbName + ";Version=" + dbVersion.ToString() + ";");
             dbConnection.Open();
 
-            CreateTable("players", "VARCHAR(16)", "INT");
-            InsertRow("players", "'Faggot'", "90");
+            // Create tables if they do not exist
+            if (newDb) {
+                CreateTable("user", "VARCHAR(16)", "VARCHAR(16)");
+                CreateTable("players", "VARCHAR(16)", "INT");
+            }
+
+            // TODO temp test
+            InsertRow("players", "'RandomPlayer2'", "90");
             ReadRows("players");
         }
 

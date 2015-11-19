@@ -4,7 +4,13 @@ using System.Timers;
 
 namespace LoLPlayerTracker {
     public class GameTracker {
+
+        public bool LeagueOpened;
+
         public GameTracker() {
+            // Init variables
+            LeagueOpened = false;
+
             // Initialise timer
             Timer clientCheckTimer = new Timer();
             clientCheckTimer.Elapsed += new ElapsedEventHandler(OnClientCheck);
@@ -15,9 +21,14 @@ namespace LoLPlayerTracker {
         private void OnClientCheck(object sender, ElapsedEventArgs e) {
             Process[] processes = Process.GetProcessesByName(Program.LeagueProcessName);
             if (processes.Length == 0) {
-                Console.WriteLine("League not open");
+                if (LeagueOpened) {
+                    LeagueOpened = false;
+                }
             } else {
-                Console.WriteLine("League open");
+                if (!LeagueOpened) {
+                    LeagueOpened = true;
+                    Program.MainForm.Open();
+                }
             }
         }
     }

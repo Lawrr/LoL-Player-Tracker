@@ -25,13 +25,13 @@ namespace LoLPlayerTracker {
 
             // Create tables if they do not exist
             if (newDb) {
-                CreateTable("user", "VARCHAR(16)", "VARCHAR(16)");
-                CreateTable("players", "VARCHAR(16)", "INT");
+                CreateTable("Players", "VARCHAR(16)", "INT");
             }
 
             // TODO temp test
-            InsertRow("players", "'RandomPlayer2'", "90");
-            ReadRows("players");
+            InsertRow("Players", "'RandomPlayer2'", "90");
+            Console.WriteLine(FindKey("Players", "'RandomPlayer2'"));
+            
         }
 
         public void CreateDatabase(string dbName) {
@@ -39,21 +39,22 @@ namespace LoLPlayerTracker {
         }
 
         public void CreateTable(string tableName, string keyType, string valueType) {
-            string command = "CREATE TABLE " + tableName + " (key " + keyType + ", value " + valueType + ")";
+            string command = "CREATE TABLE " + tableName + " (Key " + keyType + ", Value " + valueType + ")";
             new SQLiteCommand(command, dbConnection).ExecuteNonQuery();
         }
 
         public void InsertRow(string tableName, string key, string value) {
-            string command = "INSERT INTO " + tableName + " (key, value) values (" + key + ", " + value + ")";
+            string command = "INSERT INTO " + tableName + " (Key, Value) values (" + key + ", " + value + ")";
             new SQLiteCommand(command, dbConnection).ExecuteNonQuery();
         }
 
-        public void ReadRows(string tableName) {
-            string command = "SELECT * from " + tableName + " ORDER BY key DESC";
+        public string FindKey(string tableName, string key) {
+            string command = "SELECT * from " + tableName + " WHERE Key = " + key + " ORDER BY key DESC";
             SQLiteDataReader reader = new SQLiteCommand(command, dbConnection).ExecuteReader();
             while (reader.Read()) {
-                Console.WriteLine("Key: " + reader["key"] + "\tValue: " + reader["value"]);
+                Console.WriteLine("Key: " + reader["Key"] + "\tValue: " + reader["Value"]);
             }
+            return reader.ToString();
         }
     }
 }

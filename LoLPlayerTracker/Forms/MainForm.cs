@@ -4,7 +4,7 @@ namespace LoLPlayerTracker {
     public partial class MainForm : Form {
         public MainForm() {
             InitializeComponent();
-            Icon = Properties.Resources.TrayIcon;
+            Icon = Properties.Resources.Icon;
             CenterToScreen();
             BringToFront();
         }

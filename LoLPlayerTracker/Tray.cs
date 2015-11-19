@@ -20,7 +20,7 @@ namespace LoLPlayerTracker {
             // Tray icon
             TrayIcon = new NotifyIcon();
             TrayIcon.Text = Program.ProgramName;
-            TrayIcon.Icon = Properties.Resources.TrayIcon;
+            TrayIcon.Icon = Properties.Resources.Icon;
             TrayIcon.ContextMenu = ContextMenu;
             TrayIcon.Visible = true;
 

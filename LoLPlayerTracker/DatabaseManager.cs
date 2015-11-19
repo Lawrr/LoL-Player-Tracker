@@ -8,8 +8,6 @@ namespace LoLPlayerTracker {
         public SQLiteConnection dbConnection;
 
         public DatabaseManager(string dbName, int dbVersion) {
-            Console.WriteLine("Hello i am the database manager");
-
             InitDb(dbName, dbVersion);
         }
 
@@ -19,7 +17,6 @@ namespace LoLPlayerTracker {
             if (!File.Exists(dbName)) {
                 newDb = true;
                 CreateDatabase(dbName);
-                Console.WriteLine("Created database");
             }
 
             // Create connection

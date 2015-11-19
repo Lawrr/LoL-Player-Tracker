@@ -8,7 +8,7 @@ namespace LoLPlayerTracker {
         public static string LeagueProcessName { get; private set; } = "League of Legends";
         public static string ClientProcessName { get; private set; } = "LolClient";
 
-        // Global Objects
+        // Static objects
         public static MainForm MainForm { get; private set; }
         public static Tray Tray { get; private set; }
         public static DatabaseManager DatabaseManager { get; private set; }
@@ -22,7 +22,7 @@ namespace LoLPlayerTracker {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            // Init objects
+            // Init static objects
             MainForm = new MainForm();
             Tray = new Tray();
             DatabaseManager = new DatabaseManager("db.sqlite", 3);

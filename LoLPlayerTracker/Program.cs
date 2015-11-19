@@ -29,7 +29,7 @@ namespace LoLPlayerTracker {
             GameTracker = new GameTracker();
 
             // Start application
-            Application.Run();
+            Application.Run(MainForm);
         }
     }
 }

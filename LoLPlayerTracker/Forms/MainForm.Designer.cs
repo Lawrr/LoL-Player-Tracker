@@ -32,6 +32,7 @@
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Name = Program.ProgramName;
             this.Text = Program.ProgramName;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(MainForm_FormClosing);
             this.ResumeLayout(false);
 
         }

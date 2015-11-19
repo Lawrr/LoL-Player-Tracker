@@ -12,5 +12,10 @@ namespace LoLPlayerTracker {
         public void Open() {
             Show();
         }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
+            Hide();
+            e.Cancel = true;
+        }
     }
 }

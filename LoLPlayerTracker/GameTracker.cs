@@ -30,11 +30,16 @@ namespace LoLPlayerTracker {
         }
 
         private async void OnClientCheck(object sender, ElapsedEventArgs e) {
+            // Check if we're on the main thread
             if (Program.MainForm.InvokeRequired) {
+                // Set delegate to invoke on main thread
                 OnClientCheckCallback d = new OnClientCheckCallback(OnClientCheck);
                 Program.MainForm.Invoke(d, new object[] { sender, e });
             } else {
+                // Find league process
                 Process[] processes = Process.GetProcessesByName(Program.LeagueProcessName);
+
+                // Check if league opened
                 if (processes.Length == 0) {
                     // League not opened
                     if (LeagueOpened) {
@@ -64,6 +69,8 @@ namespace LoLPlayerTracker {
         }
 
         public async Task PopupDelay() {
+            // Delay for when league opens and goes fullscreen
+            // Wait 3 seconds for it to go into fullscreen mode before popping up the form
             await Task.Delay(3000);
         }
 
@@ -84,7 +91,7 @@ namespace LoLPlayerTracker {
                 CurrentGame game = await gameTask;
 
                 // Change GUI for current game
-                CurrentMatchPanel currentMatchPanel = new CurrentMatchPanel(game);
+                CurrentGamePanel currentMatchPanel = new CurrentGamePanel(game);
                 Program.MainForm.SetCurrentMatchPanel(currentMatchPanel);
                 Program.MainForm.ChangeStatus(MATCH_LOADED);
 

@@ -5,8 +5,8 @@ using System.Drawing;
 using System.Windows.Forms;
 
 namespace LoLPlayerTracker {
-    public class CurrentMatchPanel : Panel {
-        public CurrentMatchPanel(CurrentGame currentGame) {
+    public class CurrentGamePanel : Panel {
+        public CurrentGamePanel(CurrentGame game) {
             // Set panel size
             Size = new Size(320, 180);
 
@@ -14,7 +14,7 @@ namespace LoLPlayerTracker {
             List<long> teamIds = new List<long>();
             List<int> teamNumPlayers = new List<int>();
 
-            foreach (Participant p in currentGame.Participants) {
+            foreach (Participant p in game.Participants) {
                 // Add new team for the game if it does not exist
                 if (!teamIds.Contains(p.TeamId)) {
                     teamIds.Add(p.TeamId);

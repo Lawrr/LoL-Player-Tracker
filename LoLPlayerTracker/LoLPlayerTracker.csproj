@@ -78,7 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CurrentMatchPanel.cs">
+    <Compile Include="CurrentGamePanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DatabaseManager.cs" />

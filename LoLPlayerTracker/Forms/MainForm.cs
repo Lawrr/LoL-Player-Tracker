@@ -6,7 +6,7 @@ using System.Windows.Forms;
 namespace LoLPlayerTracker {
     public partial class MainForm : Form {
 
-        public CurrentMatchPanel CurrentMatchPanel;
+        public CurrentGamePanel CurrentGamePanel;
 
         public MainForm() {
             InitializeComponent();
@@ -20,7 +20,6 @@ namespace LoLPlayerTracker {
 
             // Set initial values
             SummonerNameTextBox.Text = ConfigurationManager.AppSettings["SummonerName"];
-            UpdateButton.Enabled = false;
             RegionComboBox.SelectedIndex = 3;
             ChangeStatus(GameTracker.WAITING_FOR_GAME);
 
@@ -38,19 +37,18 @@ namespace LoLPlayerTracker {
             Activate();
         }
 
-        public void SetCurrentMatchPanel(CurrentMatchPanel panel) {
+        public void SetCurrentMatchPanel(CurrentGamePanel panel) {
             // Set panel location
-            panel.Location = new System.Drawing.Point(320, 10);
+            panel.Location = new System.Drawing.Point(14, 26);
             
             // Remove old panel and add new one
-            Controls.Remove(CurrentMatchPanel);
-            Controls.Add(panel);
-            CurrentMatchPanel = panel;
+            CurrentGameGroupBox.Controls.Remove(CurrentGamePanel);
+            CurrentGameGroupBox.Controls.Add(panel);
+            CurrentGamePanel = panel;
         }
 
         public void ChangeStatus(string newStatus) {
-            StatusLabel.Text = "Status: ";
-            StatusLabel.Text += newStatus;
+            StatusLabel.Text = newStatus;
         }
 
         public string GetSummonerName() {
@@ -75,18 +73,10 @@ namespace LoLPlayerTracker {
             config.AppSettings.Settings.Remove("SummonerName");
             config.AppSettings.Settings.Add("SummonerName", SummonerNameTextBox.Text);
             config.Save(ConfigurationSaveMode.Modified);
-            UpdateButton.Enabled = false;
-        }
-
-        private void SummonerNameTextBox_TextChanged(object sender, System.EventArgs e) {
-            UpdateButton.Enabled = true;
         }
 
         private void PastMatchesPanel_MouseEnter(object sender, System.EventArgs e) {
             PastMatchesPanel.Focus();
-        }
-
-        private void SearchButton_Click(object sender, EventArgs e) {
         }
     }
 }

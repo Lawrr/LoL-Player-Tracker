@@ -34,7 +34,9 @@ namespace LoLPlayerTracker {
         public void AddGame(Summoner summoner, CurrentGame game) {
             foreach (Participant p in game.Participants) {
                 if (p.SummonerName != Program.MainForm.GetSummonerName()) {
-                    InsertRow("Players", p.SummonerId.ToString(), game.GameId.ToString());
+                    if (!KeyValueExists("Players", p.SummonerId.ToString(), game.GameId.ToString())) {
+                        InsertRow("Players", p.SummonerId.ToString(), game.GameId.ToString());
+                    }
                 }
             }
         }
@@ -60,6 +62,12 @@ namespace LoLPlayerTracker {
                 Console.WriteLine("Key: " + reader["Key"] + "\tValue: " + reader["Value"]);
             }
             return reader;
+        }
+
+        public bool KeyValueExists(string tableName, string key, string value) {
+            string command = "SELECT * from " + tableName + " WHERE Key = " + key + " AND Value = " + value + ";";
+            SQLiteDataReader reader = new SQLiteCommand(command, dbConnection).ExecuteReader();
+            return reader.Read();
         }
 
         public int FindNumResults(string tableName, string key) {

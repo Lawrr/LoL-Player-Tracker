@@ -39,7 +39,10 @@ namespace LoLPlayerTracker {
                     // League not opened
                     if (LeagueOpened) {
                         LeagueOpened = false;
+
+                        // Change GUI
                         Program.MainForm.ChangeStatus(WAITING_FOR_GAME);
+                        Program.MainForm.SetCurrentMatchPanel(null);
                     }
                 } else {
                     // League opened
@@ -51,8 +54,10 @@ namespace LoLPlayerTracker {
 
                         // Change GUI
                         Program.MainForm.ChangeStatus(LOADING_MATCH);
-                        await PopupDelay();
-                        Program.MainForm.Open();
+                        if (!Program.MainForm.Visible) {
+                            await PopupDelay();
+                            Program.MainForm.Open();
+                        }
                     }
                 }
             }

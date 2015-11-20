@@ -46,12 +46,12 @@ namespace LoLPlayerTracker {
         }
 
         public void SetCurrentMatchPanel(CurrentGamePanel panel) {
-            // Set panel location
-            panel.Location = new System.Drawing.Point(14, 26);
-            
             // Remove old panel and add new one
             CurrentGameGroupBox.Controls.Remove(CurrentGamePanel);
-            CurrentGameGroupBox.Controls.Add(panel);
+            if (panel != null) {
+                panel.Location = new System.Drawing.Point(14, 26);
+                CurrentGameGroupBox.Controls.Add(panel);
+            }
             CurrentGamePanel = panel;
         }
 

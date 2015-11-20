@@ -180,6 +180,7 @@
             this.Controls.Add(this.SearchGroupBox);
             this.Controls.Add(this.SettingsGroupBox);
             this.Controls.Add(this.PastMatchesPanel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "MainForm";
             this.Text = "LoL Player Tracker";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);

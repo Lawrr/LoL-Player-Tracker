@@ -59,10 +59,8 @@ namespace LoLPlayerTracker {
 
                         // Change GUI
                         Program.MainForm.ChangeStatus(LOADING_MATCH);
-                        if (!Program.MainForm.Visible) {
-                            await PopupDelay();
-                            Program.MainForm.Open();
-                        }
+                        await PopupDelay();
+                        Program.MainForm.Open();
                     }
                 }
             }

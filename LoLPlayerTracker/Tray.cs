@@ -38,7 +38,7 @@ namespace LoLPlayerTracker {
         }
 
         private void TrayIcon_OnExitClicked(object sender, EventArgs e) {
-            Application.Exit();
+            Environment.Exit(0);
         }
     }
 }

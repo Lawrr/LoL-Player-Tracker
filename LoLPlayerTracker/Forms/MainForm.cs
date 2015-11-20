@@ -6,6 +6,8 @@ using System.Windows.Forms;
 namespace LoLPlayerTracker {
     public partial class MainForm : Form {
 
+        public CurrentMatchPanel CurrentMatchPanel;
+
         public MainForm() {
             InitializeComponent();
             Init();
@@ -37,8 +39,13 @@ namespace LoLPlayerTracker {
         }
 
         public void SetCurrentMatchPanel(CurrentMatchPanel panel) {
+            // Set panel location
             panel.Location = new System.Drawing.Point(320, 10);
+            
+            // Remove old panel and add new one
+            Controls.Remove(CurrentMatchPanel);
             Controls.Add(panel);
+            CurrentMatchPanel = panel;
         }
 
         public void ChangeStatus(string newStatus) {

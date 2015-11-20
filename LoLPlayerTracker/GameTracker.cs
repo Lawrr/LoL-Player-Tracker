@@ -1,7 +1,9 @@
 ﻿using RiotSharp;
+using RiotSharp.ChampionEndpoint;
 using RiotSharp.CurrentGameEndpoint;
 using RiotSharp.SummonerEndpoint;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Timers;
@@ -83,10 +85,8 @@ namespace LoLPlayerTracker {
 
             try {
                 // Load game data
-                Task<Summoner> summonerTask = api.GetSummonerAsync(region, summonerName);
-                Summoner summoner = await summonerTask;
-                Task<CurrentGame> gameTask = api.GetCurrentGameAsync(platform, summoner.Id);
-                CurrentGame game = await gameTask;
+                Summoner summoner = await api.GetSummonerAsync(region, summonerName);
+                CurrentGame game = await api.GetCurrentGameAsync(platform, summoner.Id);
 
                 // Change GUI for current game
                 CurrentGamePanel currentMatchPanel = new CurrentGamePanel(game);

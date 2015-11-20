@@ -1,6 +1,5 @@
 ﻿using RiotSharp;
 using System;
-using System.Configuration;
 using System.Windows.Forms;
 
 namespace LoLPlayerTracker {
@@ -18,9 +17,18 @@ namespace LoLPlayerTracker {
             CenterToScreen();
             BringToFront();
 
-            // Set initial values
-            SummonerNameTextBox.Text = ConfigurationManager.AppSettings["SummonerName"];
-            RegionComboBox.SelectedIndex = 3;
+            // Summoner name
+            SummonerNameTextBox.Text = ConfigManager.Get("SummonerName");
+
+            // Region
+            string savedRegion = ConfigManager.Get("Region");
+            if (RegionComboBox.Items.IndexOf(savedRegion) != -1) {
+                RegionComboBox.SelectedIndex = RegionComboBox.Items.IndexOf(savedRegion);
+            } else {
+                RegionComboBox.SelectedIndex = 0;
+            }
+
+            // Status
             ChangeStatus(GameTracker.WAITING_FOR_GAME);
 
             for (int i = 0; i < 40; i++) {
@@ -68,15 +76,16 @@ namespace LoLPlayerTracker {
             e.Cancel = true;
         }
 
-        private void UpdateButton_Click(object sender, System.EventArgs e) {
-            Configuration config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
-            config.AppSettings.Settings.Remove("SummonerName");
-            config.AppSettings.Settings.Add("SummonerName", SummonerNameTextBox.Text);
-            config.Save(ConfigurationSaveMode.Modified);
+        private void SummonerNameTextBox_TextChanged(object sender, EventArgs e) {
+            ConfigManager.Set("SummonerName", SummonerNameTextBox.Text);
         }
 
         private void PastMatchesPanel_MouseEnter(object sender, System.EventArgs e) {
             PastMatchesPanel.Focus();
+        }
+
+        private void RegionComboBox_SelectedIndexChanged(object sender, EventArgs e) {
+            ConfigManager.Set("Region", RegionComboBox.SelectedItem.ToString());
         }
     }
 }

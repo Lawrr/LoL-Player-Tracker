@@ -23,10 +23,10 @@ namespace LoLPlayerTracker {
             Application.SetCompatibleTextRenderingDefault(false);
 
             // Init static objects
-            MainForm = new MainForm();
             Tray = new Tray();
             DatabaseManager = new DatabaseManager("db.sqlite", 3);
             GameTracker = new GameTracker();
+            MainForm = new MainForm();
 
             // Start application
             Application.Run(MainForm);

@@ -48,6 +48,7 @@
             this.SummonerNameTextBox.Size = new System.Drawing.Size(225, 20);
             this.SummonerNameTextBox.TabIndex = 0;
             this.SummonerNameTextBox.WordWrap = false;
+            this.SummonerNameTextBox.TextChanged += new System.EventHandler(this.SummonerNameTextBox_TextChanged);
             // 
             // SummonerNameLabel
             // 
@@ -74,9 +75,9 @@
             this.StatusLabel.AutoSize = true;
             this.StatusLabel.Location = new System.Drawing.Point(13, 20);
             this.StatusLabel.Name = "StatusLabel";
-            this.StatusLabel.Size = new System.Drawing.Size(43, 13);
+            this.StatusLabel.Size = new System.Drawing.Size(37, 13);
             this.StatusLabel.TabIndex = 4;
-            this.StatusLabel.Text = "Status: ";
+            this.StatusLabel.Text = "Status";
             // 
             // SettingsGroupBox
             // 
@@ -109,6 +110,7 @@
             this.RegionComboBox.Name = "RegionComboBox";
             this.RegionComboBox.Size = new System.Drawing.Size(75, 21);
             this.RegionComboBox.TabIndex = 5;
+            this.RegionComboBox.SelectedIndexChanged += new System.EventHandler(this.RegionComboBox_SelectedIndexChanged);
             // 
             // SearchButton
             // 

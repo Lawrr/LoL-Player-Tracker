@@ -78,7 +78,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CurrentGamePanel.cs">
+    <Compile Include="ConfigManager.cs" />
+    <Compile Include="Forms\Panels\CurrentGamePanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DatabaseManager.cs" />
@@ -89,7 +90,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GameTracker.cs" />
-    <Compile Include="PastMatchPanel.cs">
+    <Compile Include="Forms\Panels\PastMatchPanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Program.cs" />

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using RiotSharp.CurrentGameEndpoint;
+using RiotSharp.SummonerEndpoint;
+using System;
 using System.Data.SQLite;
 using System.IO;
 
@@ -25,12 +27,16 @@ namespace LoLPlayerTracker {
 
             // Create tables if they do not exist
             if (newDb) {
-                CreateTable("Players", "VARCHAR(16)", "INT");
+                CreateTable("Players", "INT", "INT");
             }
+        }
 
-            // TODO temp test
-            InsertRow("Players", "'RandomPlayer2'", "90");
-            Console.WriteLine(FindKey("Players", "'RandomPlayer2'"));
+        public void AddGame(Summoner summoner, CurrentGame game) {
+            foreach (Participant p in game.Participants) {
+                if (p.SummonerName != Program.MainForm.GetSummonerName()) {
+                    InsertRow("Players", p.SummonerId.ToString(), game.GameId.ToString());
+                }
+            }
         }
 
         public void CreateDatabase(string dbName) {
@@ -38,22 +44,28 @@ namespace LoLPlayerTracker {
         }
 
         public void CreateTable(string tableName, string keyType, string valueType) {
-            string command = "CREATE TABLE " + tableName + " (Key " + keyType + ", Value " + valueType + ")";
+            string command = "CREATE TABLE " + tableName + " (Key " + keyType + ", Value " + valueType + ");";
             new SQLiteCommand(command, dbConnection).ExecuteNonQuery();
         }
 
         public void InsertRow(string tableName, string key, string value) {
-            string command = "INSERT INTO " + tableName + " (Key, Value) values (" + key + ", " + value + ")";
+            string command = "INSERT INTO " + tableName + " (Key, Value) values (" + key + ", " + value + ");";
             new SQLiteCommand(command, dbConnection).ExecuteNonQuery();
         }
 
-        public string FindKey(string tableName, string key) {
-            string command = "SELECT * from " + tableName + " WHERE Key = " + key + " ORDER BY key DESC";
+        public SQLiteDataReader FindKey(string tableName, string key) {
+            string command = "SELECT * from " + tableName + " WHERE Key = " + key + " ORDER BY key DESC;";
             SQLiteDataReader reader = new SQLiteCommand(command, dbConnection).ExecuteReader();
             while (reader.Read()) {
                 Console.WriteLine("Key: " + reader["Key"] + "\tValue: " + reader["Value"]);
             }
-            return reader.ToString();
+            return reader;
+        }
+
+        public int FindNumResults(string tableName, string key) {
+            string command = "SELECT count(*) from " + tableName + " WHERE Key = '" + key + "';";
+            int count = Convert.ToInt32(new SQLiteCommand(command, dbConnection).ExecuteScalar());
+            return count;
         }
     }
 }

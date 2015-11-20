@@ -31,7 +31,6 @@ namespace LoLPlayerTracker {
             // TODO temp test
             InsertRow("Players", "'RandomPlayer2'", "90");
             Console.WriteLine(FindKey("Players", "'RandomPlayer2'"));
-            
         }
 
         public void CreateDatabase(string dbName) {

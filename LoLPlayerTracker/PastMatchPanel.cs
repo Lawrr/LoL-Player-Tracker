@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
 
 namespace LoLPlayerTracker {
-    class PastMatchPanel : Panel {
+    public class PastMatchPanel : Panel {
         public PastMatchPanel() {
 
         }

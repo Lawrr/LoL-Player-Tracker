@@ -47,7 +47,7 @@
             // 
             // UpdateButton
             // 
-            this.UpdateButton.Location = new System.Drawing.Point(225, 21);
+            this.UpdateButton.Location = new System.Drawing.Point(225, 23);
             this.UpdateButton.Name = "UpdateButton";
             this.UpdateButton.Size = new System.Drawing.Size(75, 23);
             this.UpdateButton.TabIndex = 1;
@@ -92,17 +92,16 @@
             this.SearchTextBox.Size = new System.Drawing.Size(207, 20);
             this.SearchTextBox.TabIndex = 0;
             this.SearchTextBox.WordWrap = false;
-            this.SearchTextBox.TextChanged += new System.EventHandler(this.SummonerNameTextBox_TextChanged);
             // 
             // SearchButton
             // 
-            this.SearchButton.Location = new System.Drawing.Point(225, 161);
+            this.SearchButton.Location = new System.Drawing.Point(225, 163);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(75, 23);
             this.SearchButton.TabIndex = 1;
             this.SearchButton.Text = "Search";
             this.SearchButton.UseVisualStyleBackColor = true;
-            this.SearchButton.Click += new System.EventHandler(this.UpdateButton_Click);
+            this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
             // 
             // SearchLabel
             // 

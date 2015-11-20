@@ -1,11 +1,10 @@
-﻿using System.Configuration;
+﻿using RiotSharp;
+using System;
+using System.Configuration;
 using System.Windows.Forms;
 
 namespace LoLPlayerTracker {
     public partial class MainForm : Form {
-
-        delegate void OpenFormCallback();
-        delegate void SetStatusTextCallback(string newStatus);
 
         public MainForm() {
             InitializeComponent();
@@ -32,24 +31,31 @@ namespace LoLPlayerTracker {
         }
 
         public void Open() {
-            if (InvokeRequired) {
-                OpenFormCallback del = new OpenFormCallback(Open);
-                Invoke(del, new object[] { });
-            } else {
-                Show();
-                BringToFront();
-                Activate();
-            }
+            Show();
+            BringToFront();
+            Activate();
+        }
+
+        public void SetCurrentMatchPanel(CurrentMatchPanel panel) {
+            panel.Location = new System.Drawing.Point(320, 10);
+            Controls.Add(panel);
         }
 
         public void ChangeStatus(string newStatus) {
-            if (StatusLabel.InvokeRequired) {
-                SetStatusTextCallback del = new SetStatusTextCallback(ChangeStatus);
-                Invoke(del, new object[] { newStatus });
-            } else {
-                StatusLabel.Text = "Status: ";
-                StatusLabel.Text += newStatus;
-            }
+            StatusLabel.Text = "Status: ";
+            StatusLabel.Text += newStatus;
+        }
+
+        public string GetSummonerName() {
+            return SummonerNameTextBox.Text;
+        }
+
+        public string GetRegion() {
+            return RegionComboBox.SelectedItem.ToString();
+        }
+
+        public Platform GetPlatform() {
+            return Platform.OC1;
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
@@ -71,6 +77,9 @@ namespace LoLPlayerTracker {
 
         private void PastMatchesPanel_MouseEnter(object sender, System.EventArgs e) {
             PastMatchesPanel.Focus();
+        }
+
+        private void SearchButton_Click(object sender, EventArgs e) {
         }
     }
 }

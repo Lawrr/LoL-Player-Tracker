@@ -1,9 +1,6 @@
 ﻿using RiotSharp;
-using RiotSharp.ChampionEndpoint;
 using RiotSharp.CurrentGameEndpoint;
 using RiotSharp.SummonerEndpoint;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Timers;
@@ -77,9 +74,6 @@ namespace LoLPlayerTracker {
             // Change status
             Program.MainForm.ChangeStatus(LOADING_MATCH);
 
-            // Load api
-            RiotApi api = RiotApi.GetInstance(Secrets.RIOT_API_KEY);
-
             // Get data on what game to load
             string summonerName = Program.MainForm.GetSummonerName();
             Region region = RegionParser.parse(Program.MainForm.GetRegion());
@@ -87,8 +81,8 @@ namespace LoLPlayerTracker {
 
             try {
                 // Load game data
-                Summoner summoner = await api.GetSummonerAsync(region, summonerName);
-                CurrentGame game = await api.GetCurrentGameAsync(platform, summoner.Id);
+                Summoner summoner = await Program.RiotApi.GetSummonerAsync(region, summonerName);
+                CurrentGame game = await Program.RiotApi.GetCurrentGameAsync(platform, summoner.Id);
 
                 // Add current game to database
                 Program.DatabaseManager.AddGame(summoner, game);

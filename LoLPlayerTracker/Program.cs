@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RiotSharp;
+using System;
 using System.Windows.Forms;
 
 namespace LoLPlayerTracker {
@@ -13,6 +14,7 @@ namespace LoLPlayerTracker {
         public static Tray Tray { get; private set; }
         public static DatabaseManager DatabaseManager { get; private set; }
         public static GameTracker GameTracker { get; private set; }
+        public static RiotApi RiotApi { get; private set; }
 
         /// <summary>
         /// The main entry point for the application.
@@ -23,10 +25,11 @@ namespace LoLPlayerTracker {
             Application.SetCompatibleTextRenderingDefault(false);
 
             // Init static objects
+            MainForm = new MainForm();
             Tray = new Tray();
             DatabaseManager = new DatabaseManager("db.sqlite", 3);
             GameTracker = new GameTracker();
-            MainForm = new MainForm();
+            RiotApi = RiotApi.GetInstance(Secrets.RIOT_API_KEY);
 
             // Start application
             Application.Run(MainForm);

@@ -1,5 +1,6 @@
 ﻿using RiotSharp;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace LoLPlayerTracker {
@@ -15,6 +16,8 @@ namespace LoLPlayerTracker {
         public static DatabaseManager DatabaseManager { get; private set; }
         public static GameTracker GameTracker { get; private set; }
         public static RiotApi RiotApi { get; private set; }
+        public static StaticRiotApi StaticRiotApi { get; private set; }
+        public static string GameVersion { get; private set; }
 
         /// <summary>
         /// The main entry point for the application.
@@ -29,10 +32,16 @@ namespace LoLPlayerTracker {
             Tray = new Tray();
             DatabaseManager = new DatabaseManager("db.sqlite", 3);
             GameTracker = new GameTracker();
+
             RiotApi = RiotApi.GetInstance(Secrets.RIOT_API_KEY);
+            StaticRiotApi = StaticRiotApi.GetInstance(Secrets.RIOT_API_KEY);
+
+            Region region = RegionParser.Parse(ConfigManager.Get("Region"));
+            GameVersion = StaticRiotApi.GetVersions(region)[0];
 
             // Start application
             Application.Run(MainForm);
         }
+
     }
 }

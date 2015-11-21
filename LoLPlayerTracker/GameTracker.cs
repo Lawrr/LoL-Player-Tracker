@@ -1,6 +1,9 @@
 ﻿using RiotSharp;
 using RiotSharp.CurrentGameEndpoint;
+using RiotSharp.StaticDataEndpoint;
 using RiotSharp.SummonerEndpoint;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Timers;
@@ -76,19 +79,27 @@ namespace LoLPlayerTracker {
 
             // Get data on what game to load
             string summonerName = Program.MainForm.GetSummonerName();
-            Region region = RegionParser.parse(Program.MainForm.GetRegion());
-            Platform platform = PlatformParser.parse(region);
+            Region region = RegionParser.Parse(Program.MainForm.GetRegion());
+            Platform platform = PlatformParser.Parse(region);
 
             try {
                 // Load game data
                 Summoner summoner = await Program.RiotApi.GetSummonerAsync(region, summonerName);
                 CurrentGame game = await Program.RiotApi.GetCurrentGameAsync(platform, summoner.Id);
 
+                List<ChampionStatic> championStatics = new List<ChampionStatic>();
+                foreach (Participant p in game.Participants) {
+                    ChampionStatic championStatic = await Program.StaticRiotApi.GetChampionAsync(region,
+                                                                                                 (int) p.ChampionId,
+                                                                                                 ChampionData.image);
+                    championStatics.Add(championStatic);
+                }
+
                 // Add current game to database
                 Program.DatabaseManager.AddGame(summoner, game);
 
                 // Change GUI for current game
-                CurrentGamePanel currentMatchPanel = new CurrentGamePanel(game);
+                CurrentGamePanel currentMatchPanel = new CurrentGamePanel(game, championStatics);
                 Program.MainForm.SetCurrentMatchPanel(currentMatchPanel);
                 Program.MainForm.ChangeStatus(MATCH_LOADED);
 

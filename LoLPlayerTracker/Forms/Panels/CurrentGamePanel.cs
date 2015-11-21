@@ -1,4 +1,5 @@
 ﻿using LoLPlayerTracker.Forms.Panels;
+using RiotSharp;
 using RiotSharp.ChampionEndpoint;
 using RiotSharp.CurrentGameEndpoint;
 using RiotSharp.StaticDataEndpoint;
@@ -8,7 +9,7 @@ using System.Windows.Forms;
 
 namespace LoLPlayerTracker {
     public class CurrentGamePanel : Panel {
-        public CurrentGamePanel(CurrentGame game) {
+        public CurrentGamePanel(CurrentGame game, List<ChampionStatic> championStatics) {
             // Set panel properties
             Size = new Size(320, 180);
 
@@ -27,8 +28,12 @@ namespace LoLPlayerTracker {
                 int teamIndex = teamIds.IndexOf(p.TeamId);
 
                 // Create player panel
-                CurrentGamePlayerPanel playerPanel = new CurrentGamePlayerPanel(p);
-                playerPanel.Location = new Point(155 * teamIndex, 16 * teamNumPlayers[teamIndex]);
+                string iconLocation = "http://ddragon.leagueoflegends.com/cdn/" +
+                                      Program.GameVersion +
+                                      "/img/champion/" +
+                                      championStatics[game.Participants.IndexOf(p)].Image.Full;
+                CurrentGamePlayerPanel playerPanel = new CurrentGamePlayerPanel(p, iconLocation);
+                playerPanel.Location = new Point(155 * teamIndex, 36 * teamNumPlayers[teamIndex]);
                 teamNumPlayers[teamIndex]++;
 
                 // Add player panel

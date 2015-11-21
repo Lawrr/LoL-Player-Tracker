@@ -5,16 +5,25 @@ using System.Windows.Forms;
 namespace LoLPlayerTracker.Forms.Panels {
     public class CurrentGamePlayerPanel : Panel {
         
-        public CurrentGamePlayerPanel(Participant p) {
+        public CurrentGamePlayerPanel(Participant p, string iconLocation) {
             // Set panel properties
-            Size = new Size(150, 14);
+            Size = new Size(150, 32);
+
+            // Create image
+            PictureBox iconBox = new PictureBox();
+            iconBox.InitialImage = null;
+            iconBox.ErrorImage = null;
+            iconBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            iconBox.ImageLocation = iconLocation;
+            iconBox.Size = new Size(32, 32);
+            iconBox.Location = new Point(0, 0);
 
             // Create label
             Label nameLabel = new Label();
             nameLabel.BackColor = Color.White;
             nameLabel.Cursor = Cursors.Hand;
-            nameLabel.Size = new Size(150, 14);
-            nameLabel.Location = new Point(0, 0);
+            nameLabel.Size = new Size(118, 32);
+            nameLabel.Location = new Point(32, 0);
 
             // Check if current player is self
             if (p.SummonerName != Program.MainForm.GetSummonerName()) {
@@ -27,6 +36,7 @@ namespace LoLPlayerTracker.Forms.Panels {
             }
 
             // Add label
+            Controls.Add(iconBox);
             Controls.Add(nameLabel);
         }
 

@@ -3,7 +3,7 @@
 namespace LoLPlayerTracker {
     public static class PlatformParser {
 
-        public static Platform parse(Region region) {
+        public static Platform Parse(Region region) {
             Platform platform;
             switch (region) {
                 case Region.br:

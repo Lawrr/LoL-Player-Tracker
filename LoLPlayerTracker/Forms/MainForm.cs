@@ -14,8 +14,6 @@ namespace LoLPlayerTracker {
 
         public void Init() {
             Icon = Properties.Resources.Icon;
-            CenterToScreen();
-            BringToFront();
 
             // Summoner name
             SummonerNameTextBox.Text = ConfigManager.Get("SummonerName");
@@ -37,6 +35,12 @@ namespace LoLPlayerTracker {
                 l.Location = new System.Drawing.Point(43, 20 + (25 * i));
                 PastMatchesPanel.Controls.Add(l);
             }
+        }
+
+        private void MainForm_FormLoad(object sender, EventArgs e) {
+            CenterToScreen();
+            BringToFront();
+            ActiveControl = PastMatchesPanel;
         }
 
         public void Open() {
@@ -67,10 +71,6 @@ namespace LoLPlayerTracker {
             return RegionComboBox.SelectedItem.ToString();
         }
 
-        public Platform GetPlatform() {
-            return Platform.OC1;
-        }
-
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
             Hide();
             e.Cancel = true;
@@ -80,12 +80,16 @@ namespace LoLPlayerTracker {
             ConfigManager.Set("SummonerName", SummonerNameTextBox.Text);
         }
 
-        private void PastMatchesPanel_MouseEnter(object sender, System.EventArgs e) {
+        private void PastMatchPanel_Click(object sender, EventArgs e) {
             PastMatchesPanel.Focus();
         }
 
         private void RegionComboBox_SelectedIndexChanged(object sender, EventArgs e) {
             ConfigManager.Set("Region", RegionComboBox.SelectedItem.ToString());
+        }
+
+        private void LoadGameButton_Click(object sender, EventArgs e) {
+            Program.GameTracker.LoadCurrentMatch();
         }
     }
 }

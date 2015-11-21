@@ -35,6 +35,7 @@
             this.SearchGroupBox = new System.Windows.Forms.GroupBox();
             this.CurrentGameGroupBox = new System.Windows.Forms.GroupBox();
             this.StatusGroupBox = new System.Windows.Forms.GroupBox();
+            this.LoadGameButton = new System.Windows.Forms.Button();
             this.SettingsGroupBox.SuspendLayout();
             this.SearchGroupBox.SuspendLayout();
             this.StatusGroupBox.SuspendLayout();
@@ -68,7 +69,7 @@
             this.PastMatchesPanel.Name = "PastMatchesPanel";
             this.PastMatchesPanel.Size = new System.Drawing.Size(680, 435);
             this.PastMatchesPanel.TabIndex = 3;
-            this.PastMatchesPanel.MouseEnter += new System.EventHandler(this.PastMatchesPanel_MouseEnter);
+            this.PastMatchesPanel.Click += new System.EventHandler(this.PastMatchPanel_Click);
             // 
             // StatusLabel
             // 
@@ -162,6 +163,7 @@
             // 
             // StatusGroupBox
             // 
+            this.StatusGroupBox.Controls.Add(this.LoadGameButton);
             this.StatusGroupBox.Controls.Add(this.StatusLabel);
             this.StatusGroupBox.Location = new System.Drawing.Point(12, 12);
             this.StatusGroupBox.Name = "StatusGroupBox";
@@ -169,6 +171,16 @@
             this.StatusGroupBox.TabIndex = 0;
             this.StatusGroupBox.TabStop = false;
             this.StatusGroupBox.Text = "Status";
+            // 
+            // LoadGameButton
+            // 
+            this.LoadGameButton.Location = new System.Drawing.Point(247, 15);
+            this.LoadGameButton.Name = "LoadGameButton";
+            this.LoadGameButton.Size = new System.Drawing.Size(75, 23);
+            this.LoadGameButton.TabIndex = 5;
+            this.LoadGameButton.Text = "Load Game";
+            this.LoadGameButton.UseVisualStyleBackColor = true;
+            this.LoadGameButton.Click += new System.EventHandler(this.LoadGameButton_Click);
             // 
             // MainForm
             // 
@@ -184,6 +196,7 @@
             this.Name = "MainForm";
             this.Text = "LoL Player Tracker";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_FormLoad);
             this.SettingsGroupBox.ResumeLayout(false);
             this.SettingsGroupBox.PerformLayout();
             this.SearchGroupBox.ResumeLayout(false);
@@ -208,6 +221,7 @@
         private System.Windows.Forms.GroupBox SearchGroupBox;
         private System.Windows.Forms.GroupBox CurrentGameGroupBox;
         private System.Windows.Forms.GroupBox StatusGroupBox;
+        private System.Windows.Forms.Button LoadGameButton;
     }
 }
 

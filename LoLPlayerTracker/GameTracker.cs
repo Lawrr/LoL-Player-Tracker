@@ -59,8 +59,7 @@ namespace LoLPlayerTracker {
                         // Get current game
                         LoadCurrentMatch();
 
-                        // Change GUI
-                        Program.MainForm.ChangeStatus(LOADING_MATCH);
+                        // Open form
                         await PopupDelay();
                         Program.MainForm.Open();
                     }
@@ -75,26 +74,29 @@ namespace LoLPlayerTracker {
         }
 
         public async void LoadCurrentMatch() {
+            // Change status
+            Program.MainForm.ChangeStatus(LOADING_MATCH);
+
             // Load api
             RiotApi api = RiotApi.GetInstance(Secrets.RIOT_API_KEY);
 
             // Get data on what game to load
             string summonerName = Program.MainForm.GetSummonerName();
-            Region region = (Region)Enum.Parse(typeof(Region), Program.MainForm.GetRegion().ToLower());
-            Platform platform = Program.MainForm.GetPlatform();
+            Region region = RegionParser.parse(Program.MainForm.GetRegion());
+            Platform platform = PlatformParser.parse(region);
 
             try {
                 // Load game data
                 Summoner summoner = await api.GetSummonerAsync(region, summonerName);
                 CurrentGame game = await api.GetCurrentGameAsync(platform, summoner.Id);
 
+                // Add current game to database
+                Program.DatabaseManager.AddGame(summoner, game);
+
                 // Change GUI for current game
                 CurrentGamePanel currentMatchPanel = new CurrentGamePanel(game);
                 Program.MainForm.SetCurrentMatchPanel(currentMatchPanel);
                 Program.MainForm.ChangeStatus(MATCH_LOADED);
-
-                // Add current game to database
-                Program.DatabaseManager.AddGame(summoner, game);
 
             } catch (RiotSharpException e) {
                 // TODO stub

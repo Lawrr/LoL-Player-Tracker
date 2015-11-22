@@ -58,9 +58,6 @@ namespace LoLPlayerTracker {
         public SQLiteDataReader FindKey(string tableName, string key) {
             string command = "SELECT * from " + tableName + " WHERE Key = " + key + " ORDER BY key DESC;";
             SQLiteDataReader reader = new SQLiteCommand(command, dbConnection).ExecuteReader();
-            while (reader.Read()) {
-                Console.WriteLine("Key: " + reader["Key"] + "\tValue: " + reader["Value"]);
-            }
             return reader;
         }
 

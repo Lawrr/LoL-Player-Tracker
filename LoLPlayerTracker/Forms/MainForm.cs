@@ -49,7 +49,7 @@ namespace LoLPlayerTracker {
             Activate();
         }
 
-        public void SetCurrentMatchPanel(CurrentGamePanel panel) {
+        public void SetCurrentGamePanel(CurrentGamePanel panel) {
             // Remove old panel and add new one
             CurrentGameGroupBox.Controls.Remove(CurrentGamePanel);
             if (panel != null) {
@@ -89,7 +89,7 @@ namespace LoLPlayerTracker {
         }
 
         private void LoadGameButton_Click(object sender, EventArgs e) {
-            Program.GameTracker.LoadCurrentMatch();
+            Program.GameTracker.LoadCurrentGame();
         }
     }
 }

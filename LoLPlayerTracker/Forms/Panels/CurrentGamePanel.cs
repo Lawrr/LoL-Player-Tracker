@@ -3,6 +3,7 @@ using RiotSharp;
 using RiotSharp.ChampionEndpoint;
 using RiotSharp.CurrentGameEndpoint;
 using RiotSharp.StaticDataEndpoint;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;

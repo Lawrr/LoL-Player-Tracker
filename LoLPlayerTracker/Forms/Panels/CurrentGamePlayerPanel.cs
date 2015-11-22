@@ -1,11 +1,17 @@
 ﻿using RiotSharp.CurrentGameEndpoint;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace LoLPlayerTracker.Forms.Panels {
     public class CurrentGamePlayerPanel : Panel {
-        
+
+        public Participant Player { get; private set; }
+
         public CurrentGamePlayerPanel(Participant p, string iconLocation) {
+            // Set variables
+            Player = p;
+
             // Set panel properties
             Size = new Size(150, 32);
 
@@ -38,6 +44,13 @@ namespace LoLPlayerTracker.Forms.Panels {
             // Add label
             Controls.Add(iconBox);
             Controls.Add(nameLabel);
+
+            // Add on click
+            nameLabel.Click += new EventHandler(NameLabel_Click);
+        }
+
+        private void NameLabel_Click(object sender, EventArgs e) {
+            Program.GameTracker.LoadMatches(Player.SummonerId);
         }
 
     }

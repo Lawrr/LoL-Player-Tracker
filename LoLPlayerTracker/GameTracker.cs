@@ -4,6 +4,7 @@ using RiotSharp.StaticDataEndpoint;
 using RiotSharp.SummonerEndpoint;
 using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Timers;
@@ -12,8 +13,8 @@ namespace LoLPlayerTracker {
     public class GameTracker {
 
         public static string WAITING_FOR_GAME = "Waiting for game";
-        public static string LOADING_MATCH = "Loading match";
-        public static string MATCH_LOADED = "Match loaded";
+        public static string LOADING_GAME = "Loading game";
+        public static string GAME_LOADED = "Game loaded";
         public static string GAME_NOT_FOUND = "Game not found";
 
         delegate void OnClientCheckCallback(object sender, ElapsedEventArgs e);
@@ -49,7 +50,7 @@ namespace LoLPlayerTracker {
 
                         // Change GUI
                         Program.MainForm.ChangeStatus(WAITING_FOR_GAME);
-                        Program.MainForm.SetCurrentMatchPanel(null);
+                        Program.MainForm.SetCurrentGamePanel(null);
                     }
                 } else {
                     // League opened
@@ -57,7 +58,7 @@ namespace LoLPlayerTracker {
                         LeagueOpened = true;
 
                         // Get current game
-                        LoadCurrentMatch();
+                        LoadCurrentGame();
 
                         // Open form
                         await PopupDelay();
@@ -73,9 +74,9 @@ namespace LoLPlayerTracker {
             await Task.Delay(3000);
         }
 
-        public async void LoadCurrentMatch() {
+        public async void LoadCurrentGame() {
             // Change status
-            Program.MainForm.ChangeStatus(LOADING_MATCH);
+            Program.MainForm.ChangeStatus(LOADING_GAME);
 
             // Get data on what game to load
             string summonerName = Program.MainForm.GetSummonerName();
@@ -99,15 +100,21 @@ namespace LoLPlayerTracker {
                 Program.DatabaseManager.AddGame(summoner, game);
 
                 // Change GUI for current game
-                CurrentGamePanel currentMatchPanel = new CurrentGamePanel(game, championStatics);
-                Program.MainForm.SetCurrentMatchPanel(currentMatchPanel);
-                Program.MainForm.ChangeStatus(MATCH_LOADED);
+                CurrentGamePanel currentGamePanel = new CurrentGamePanel(game, championStatics);
+                Program.MainForm.SetCurrentGamePanel(currentGamePanel);
+                Program.MainForm.ChangeStatus(GAME_LOADED);
 
             } catch (RiotSharpException e) {
                 // TODO stub
                 Program.MainForm.ChangeStatus(GAME_NOT_FOUND);
             }
+        }
 
+        public void LoadMatches(long summonerId) {
+            SQLiteDataReader reader = Program.DatabaseManager.FindKey("Players", summonerId.ToString());
+            while (reader.Read()) {
+                Console.WriteLine("Key: " + reader["Key"] + "\tValue: " + reader["Value"]);
+            }
         }
     }
 }

@@ -93,7 +93,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="GameTracker.cs" />
-    <Compile Include="Forms\Panels\PastMatchPanel.cs">
+    <Compile Include="Forms\Panels\PastMatchesPanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PlatformParser.cs" />

@@ -30,7 +30,7 @@ namespace LoLPlayerTracker {
 
                 // Create player panel
                 string iconLocation = "http://ddragon.leagueoflegends.com/cdn/" +
-                                      Program.GameVersion +
+                                      Program.PatchVersion +
                                       "/img/champion/" +
                                       championStatics[game.Participants.IndexOf(p)].Image.Full;
                 CurrentGamePlayerPanel playerPanel = new CurrentGamePlayerPanel(p, iconLocation);

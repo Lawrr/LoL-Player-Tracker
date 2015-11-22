@@ -17,7 +17,7 @@ namespace LoLPlayerTracker {
         public static GameTracker GameTracker { get; private set; }
         public static RiotApi RiotApi { get; private set; }
         public static StaticRiotApi StaticRiotApi { get; private set; }
-        public static string GameVersion { get; private set; }
+        public static string PatchVersion { get; private set; }
 
         /// <summary>
         /// The main entry point for the application.
@@ -37,7 +37,7 @@ namespace LoLPlayerTracker {
             StaticRiotApi = StaticRiotApi.GetInstance(Secrets.RIOT_API_KEY);
 
             Region region = RegionParser.Parse(ConfigManager.Get("Region"));
-            GameVersion = StaticRiotApi.GetVersions(region)[0];
+            PatchVersion = StaticRiotApi.GetVersions(region)[0];
 
             // Start application
             Application.Run(MainForm);

@@ -1,16 +1,14 @@
 ﻿using LoLPlayerTracker.Forms.Panels;
-using RiotSharp;
-using RiotSharp.ChampionEndpoint;
 using RiotSharp.CurrentGameEndpoint;
+using RiotSharp.LeagueEndpoint;
 using RiotSharp.StaticDataEndpoint;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace LoLPlayerTracker {
     public class CurrentGamePanel : Panel {
-        public CurrentGamePanel(CurrentGame game, List<ChampionStatic> championStatics) {
+        public CurrentGamePanel(CurrentGame game, List<ChampionStatic> championStatics, Dictionary<long, List<League>> leagues) {
             // Set panel properties
             Size = new Size(320, 180);
 
@@ -33,7 +31,7 @@ namespace LoLPlayerTracker {
                                       Program.PatchVersion +
                                       "/img/champion/" +
                                       championStatics[game.Participants.IndexOf(p)].Image.Full;
-                CurrentGamePlayerPanel playerPanel = new CurrentGamePlayerPanel(p, iconLocation);
+                CurrentGamePlayerPanel playerPanel = new CurrentGamePlayerPanel(p, iconLocation, leagues[p.SummonerId]);
                 playerPanel.Location = new Point(155 * teamIndex, 36 * teamNumPlayers[teamIndex]);
                 teamNumPlayers[teamIndex]++;
 

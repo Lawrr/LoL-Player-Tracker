@@ -1,5 +1,7 @@
 ﻿using RiotSharp.CurrentGameEndpoint;
+using RiotSharp.LeagueEndpoint;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -8,7 +10,7 @@ namespace LoLPlayerTracker.Forms.Panels {
 
         public Participant Player { get; private set; }
 
-        public CurrentGamePlayerPanel(Participant p, string iconLocation) {
+        public CurrentGamePlayerPanel(Participant p, string iconLocation, List<League> leagues) {
             // Set variables
             Player = p;
 
@@ -28,8 +30,19 @@ namespace LoLPlayerTracker.Forms.Panels {
             Label nameLabel = new Label();
             nameLabel.BackColor = Color.White;
             nameLabel.Cursor = Cursors.Hand;
-            nameLabel.Size = new Size(118, 32);
+            nameLabel.Size = new Size(118, 16);
             nameLabel.Location = new Point(32, 0);
+            
+            Label rankLabel = new Label();
+            rankLabel.BackColor = Color.LightGray;
+            rankLabel.Cursor = Cursors.Hand;
+            rankLabel.Size = new Size(118, 16);
+            rankLabel.Location = new Point(32, 16);
+            try {
+                rankLabel.Text = leagues[0].Tier.ToString() + " " + leagues[0].Entries[0].Division;
+            } catch (IndexOutOfRangeException e) {
+                rankLabel.Text = "Unranked";
+            }
 
             // Check if current player is self
             if (p.SummonerName != Program.MainForm.GetSummonerName()) {
@@ -44,6 +57,7 @@ namespace LoLPlayerTracker.Forms.Panels {
             // Add label
             Controls.Add(iconBox);
             Controls.Add(nameLabel);
+            Controls.Add(rankLabel);
 
             // Add on click
             nameLabel.Click += new EventHandler(NameLabel_Click);

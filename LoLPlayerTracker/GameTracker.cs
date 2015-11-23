@@ -1,5 +1,6 @@
 ﻿using RiotSharp;
 using RiotSharp.CurrentGameEndpoint;
+using RiotSharp.LeagueEndpoint;
 using RiotSharp.StaticDataEndpoint;
 using RiotSharp.SummonerEndpoint;
 using System;
@@ -89,18 +90,21 @@ namespace LoLPlayerTracker {
                 CurrentGame game = await Program.RiotApi.GetCurrentGameAsync(platform, summoner.Id);
 
                 List<ChampionStatic> championStatics = new List<ChampionStatic>();
+                List<int> summonerIds = new List<int>();
                 foreach (Participant p in game.Participants) {
+                    summonerIds.Add((int) p.SummonerId);
                     ChampionStatic championStatic = await Program.StaticRiotApi.GetChampionAsync(region,
                                                                                                  (int) p.ChampionId,
                                                                                                  ChampionData.image);
                     championStatics.Add(championStatic);
                 }
+                Dictionary<long, List<League>> leagues = await Program.RiotApi.GetLeaguesAsync(RegionParser.Parse(Program.MainForm.GetRegion()), summonerIds);
 
                 // Add current game to database
                 Program.DatabaseManager.AddGame(summoner, game);
 
                 // Change GUI for current game
-                CurrentGamePanel currentGamePanel = new CurrentGamePanel(game, championStatics);
+                CurrentGamePanel currentGamePanel = new CurrentGamePanel(game, championStatics, leagues);
                 Program.MainForm.SetCurrentGamePanel(currentGamePanel);
                 Program.MainForm.ChangeStatus(GAME_LOADED);
 

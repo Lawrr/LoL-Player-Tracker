@@ -39,8 +39,15 @@ namespace LoLPlayerTracker {
             Region region = RegionParser.Parse(ConfigManager.Get("Region"));
             PatchVersion = StaticRiotApi.GetVersions(region)[0];
 
+            // Event handlers
+            Application.ApplicationExit += new EventHandler(Application_ApplicationExit);
+
             // Start application
             Application.Run(MainForm);
+        }
+
+        private static void Application_ApplicationExit(object sender, EventArgs e) {
+            Tray.TrayIcon.Visible = false;
         }
 
     }

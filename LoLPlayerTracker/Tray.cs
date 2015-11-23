@@ -27,10 +27,14 @@ namespace LoLPlayerTracker {
 
             // Event handlers
             TrayIcon.DoubleClick += new EventHandler(TrayIcon_DoubleClick);
+            TrayIcon.BalloonTipClosed += new EventHandler(TrayIcon_BalloonTipClosed);
         }
 
         private void TrayIcon_DoubleClick(object sender, EventArgs e) {
             Program.MainForm.Open();
+        }
+
+        private void TrayIcon_BalloonTipClosed(object sender, EventArgs e) {
         }
         
         private void TrayIcon_OnOpenClicked(object sender, EventArgs e) {
@@ -38,7 +42,7 @@ namespace LoLPlayerTracker {
         }
 
         private void TrayIcon_OnExitClicked(object sender, EventArgs e) {
-            Environment.Exit(0);
+            Application.ExitThread();
         }
     }
 }

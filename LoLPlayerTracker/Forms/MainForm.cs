@@ -77,7 +77,7 @@ namespace LoLPlayerTracker {
         }
 
         private void SummonerNameTextBox_TextChanged(object sender, EventArgs e) {
-            ConfigManager.Set("SummonerName", SummonerNameTextBox.Text);
+            ConfigManager.Set("SummonerName", GetSummonerName());
         }
 
         private void PastMatchPanel_Click(object sender, EventArgs e) {
@@ -85,11 +85,15 @@ namespace LoLPlayerTracker {
         }
 
         private void RegionComboBox_SelectedIndexChanged(object sender, EventArgs e) {
-            ConfigManager.Set("Region", RegionComboBox.SelectedItem.ToString());
+            ConfigManager.Set("Region", GetRegion());
         }
 
         private void LoadGameButton_Click(object sender, EventArgs e) {
             Program.GameTracker.LoadCurrentGame();
+        }
+
+        private void SearchButton_Click(object sender, EventArgs e) {
+            Program.GameTracker.LoadMatches(SearchTextBox.Text, RegionParser.Parse(GetRegion()));
         }
     }
 }

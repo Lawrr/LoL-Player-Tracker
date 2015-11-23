@@ -116,5 +116,10 @@ namespace LoLPlayerTracker {
                 Console.WriteLine("Key: " + reader["Key"] + "\tValue: " + reader["Value"]);
             }
         }
+
+        public async void LoadMatches(string summonerName, Region region) {
+            Summoner summoner = await Program.RiotApi.GetSummonerAsync(region, summonerName);
+            LoadMatches(summoner.Id);
+        }
     }
 }

@@ -34,7 +34,7 @@ namespace LoLPlayerTracker.Forms.Panels {
             // Check if current player is self
             if (p.SummonerName != Program.MainForm.GetSummonerName()) {
                 // Get num times you've played with the player (minus 1 to exclude current game)
-                int numGames = Program.DatabaseManager.FindNumResults("Players", p.SummonerId.ToString()) - 1;
+                int numGames = Program.DatabaseManager.FindNumResults(DatabaseManager.PLAYERS_TABLE, p.SummonerId.ToString()) - 1;
                 nameLabel.Text = p.SummonerName + " " + numGames;
             } else {
                 // Player is self

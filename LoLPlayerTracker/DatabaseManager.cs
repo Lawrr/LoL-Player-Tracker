@@ -7,6 +7,8 @@ using System.IO;
 namespace LoLPlayerTracker {
     public class DatabaseManager {
 
+        public static string PLAYERS_TABLE = "Players";
+
         public SQLiteConnection dbConnection;
 
         public DatabaseManager(string dbName, int dbVersion) {
@@ -27,15 +29,15 @@ namespace LoLPlayerTracker {
 
             // Create tables if they do not exist
             if (newDb) {
-                CreateTable("Players", "INT", "INT");
+                CreateTable(PLAYERS_TABLE, "INT", "INT");
             }
         }
 
         public void AddGame(Summoner summoner, CurrentGame game) {
             foreach (Participant p in game.Participants) {
                 if (p.SummonerName != Program.MainForm.GetSummonerName()) {
-                    if (!KeyValueExists("Players", p.SummonerId.ToString(), game.GameId.ToString())) {
-                        InsertRow("Players", p.SummonerId.ToString(), game.GameId.ToString());
+                    if (!KeyValueExists(PLAYERS_TABLE, p.SummonerId.ToString(), game.GameId.ToString())) {
+                        InsertRow(PLAYERS_TABLE, p.SummonerId.ToString(), game.GameId.ToString());
                     }
                 }
             }

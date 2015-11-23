@@ -111,7 +111,7 @@ namespace LoLPlayerTracker {
         }
 
         public void LoadMatches(long summonerId) {
-            SQLiteDataReader reader = Program.DatabaseManager.FindKey("Players", summonerId.ToString());
+            SQLiteDataReader reader = Program.DatabaseManager.FindKey(DatabaseManager.PLAYERS_TABLE, summonerId.ToString());
             while (reader.Read()) {
                 Console.WriteLine("Key: " + reader["Key"] + "\tValue: " + reader["Value"]);
             }

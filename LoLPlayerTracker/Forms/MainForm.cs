@@ -5,6 +5,10 @@ using System.Windows.Forms;
 namespace LoLPlayerTracker {
     public partial class MainForm : Form {
 
+        delegate void OnOpenCallback();
+        delegate void OnSetCurrentGamePanelCallback(CurrentGamePanel panel);
+        delegate void OnChangeStatusCallback(string newStatus);
+
         public CurrentGamePanel CurrentGamePanel;
 
         public MainForm() {
@@ -44,23 +48,44 @@ namespace LoLPlayerTracker {
         }
 
         public void Open() {
-            Show();
-            BringToFront();
-            Activate();
+            // Check if we're on the main thread
+            if (InvokeRequired) {
+                // Set delegate to invoke on main thread
+                OnOpenCallback d = new OnOpenCallback(Open);
+                Invoke(d, new object[] { });
+            } else {
+                Show();
+                BringToFront();
+                Activate();
+            }
         }
 
         public void SetCurrentGamePanel(CurrentGamePanel panel) {
-            // Remove old panel and add new one
-            CurrentGameGroupBox.Controls.Remove(CurrentGamePanel);
-            if (panel != null) {
-                panel.Location = new System.Drawing.Point(14, 26);
-                CurrentGameGroupBox.Controls.Add(panel);
+            // Check if we're on the main thread
+            if (InvokeRequired) {
+                // Set delegate to invoke on main thread
+                OnSetCurrentGamePanelCallback d = new OnSetCurrentGamePanelCallback(SetCurrentGamePanel);
+                Invoke(d, new object[] { panel });
+            } else {
+                // Remove old panel and add new one
+                CurrentGameGroupBox.Controls.Remove(CurrentGamePanel);
+                if (panel != null) {
+                    panel.Location = new System.Drawing.Point(14, 26);
+                    CurrentGameGroupBox.Controls.Add(panel);
+                }
+                CurrentGamePanel = panel;
             }
-            CurrentGamePanel = panel;
         }
 
         public void ChangeStatus(string newStatus) {
-            StatusLabel.Text = newStatus;
+            // Check if we're on the main thread
+            if (InvokeRequired) {
+                // Set delegate to invoke on main thread
+                OnChangeStatusCallback d = new OnChangeStatusCallback(ChangeStatus);
+                Invoke(d, new object[] { newStatus });
+            } else {
+                StatusLabel.Text = newStatus;
+            }
         }
 
         public string GetSummonerName() {

@@ -98,7 +98,7 @@ namespace LoLPlayerTracker {
                                                                                                  ChampionData.image);
                     championStatics.Add(championStatic);
                 }
-                Dictionary<long, List<League>> leagues = await Program.RiotApi.GetLeaguesAsync(RegionParser.Parse(Program.MainForm.GetRegion()), summonerIds);
+                Dictionary<long, List<League>> leagues = await Program.RiotApi.GetLeaguesAsync(region, summonerIds);
 
                 // Add current game to database
                 Program.DatabaseManager.AddGame(summoner, game);

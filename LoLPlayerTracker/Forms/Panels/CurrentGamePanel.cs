@@ -31,7 +31,12 @@ namespace LoLPlayerTracker {
                                       Program.PatchVersion +
                                       "/img/champion/" +
                                       championStatics[game.Participants.IndexOf(p)].Image.Full;
-                CurrentGamePlayerPanel playerPanel = new CurrentGamePlayerPanel(p, iconLocation, leagues[p.SummonerId]);
+                CurrentGamePlayerPanel playerPanel;
+                try {
+                    playerPanel = new CurrentGamePlayerPanel(p, iconLocation, leagues[p.SummonerId]);
+                } catch (KeyNotFoundException e) {
+                    playerPanel = new CurrentGamePlayerPanel(p, iconLocation, new List<League>());
+                }
                 playerPanel.Location = new Point(155 * teamIndex, 36 * teamNumPlayers[teamIndex]);
                 teamNumPlayers[teamIndex]++;
 

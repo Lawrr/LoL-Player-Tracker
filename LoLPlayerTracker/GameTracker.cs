@@ -120,7 +120,7 @@ namespace LoLPlayerTracker {
             while (reader.Read()) {
                 Console.WriteLine("Key: " + reader["Key"] + "\tValue: " + reader["Value"]);
                 PastMatchPanel pastMatchPanel = new PastMatchPanel((int) reader["Value"]);
-                pastMatchPanel.Location = new System.Drawing.Point(0, 16 * panels.Count);
+                pastMatchPanel.Location = new System.Drawing.Point(0, pastMatchPanel.Height * panels.Count);
                 panels.Add(pastMatchPanel);
             }
             Program.MainForm.SetPastMatches(panels);

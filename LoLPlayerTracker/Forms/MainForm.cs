@@ -1,5 +1,5 @@
-﻿using RiotSharp;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace LoLPlayerTracker {
@@ -7,6 +7,7 @@ namespace LoLPlayerTracker {
 
         delegate void OnOpenCallback();
         delegate void OnSetCurrentGamePanelCallback(CurrentGamePanel panel);
+        delegate void OnSetPastMatchesCallback(List<PastMatchPanel> panels);
         delegate void OnChangeStatusCallback(string newStatus);
 
         public CurrentGamePanel CurrentGamePanel;
@@ -32,13 +33,6 @@ namespace LoLPlayerTracker {
 
             // Status
             ChangeStatus(GameTracker.WAITING_FOR_GAME);
-
-            for (int i = 0; i < 40; i++) {
-                Label l = new Label();
-                l.Text = "Hello";
-                l.Location = new System.Drawing.Point(43, 20 + (25 * i));
-                PastMatchesPanel.Controls.Add(l);
-            }
         }
 
         private void MainForm_FormLoad(object sender, EventArgs e) {
@@ -74,6 +68,21 @@ namespace LoLPlayerTracker {
                     CurrentGameGroupBox.Controls.Add(panel);
                 }
                 CurrentGamePanel = panel;
+            }
+        }
+
+        public void SetPastMatches(List<PastMatchPanel> panels) {
+            // Check if we're on the main thread
+            if (InvokeRequired) {
+                // Set delegate to invoke on main thread
+                OnSetPastMatchesCallback d = new OnSetPastMatchesCallback(SetPastMatches);
+                Invoke(d, new object[] { panels });
+            } else {
+                // Remove old matches and add new ones
+                PastMatchesPanel.Controls.Clear();
+                foreach (PastMatchPanel p in panels) {
+                    PastMatchesPanel.Controls.Add(p);
+                }
             }
         }
 

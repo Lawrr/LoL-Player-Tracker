@@ -115,10 +115,15 @@ namespace LoLPlayerTracker {
         }
 
         public void LoadMatches(long summonerId) {
+            List<PastMatchPanel> panels = new List<PastMatchPanel>();
             SQLiteDataReader reader = Program.DatabaseManager.FindKey(DatabaseManager.PLAYERS_TABLE, summonerId.ToString());
             while (reader.Read()) {
                 Console.WriteLine("Key: " + reader["Key"] + "\tValue: " + reader["Value"]);
+                PastMatchPanel pastMatchPanel = new PastMatchPanel((int) reader["Value"]);
+                pastMatchPanel.Location = new System.Drawing.Point(0, 16 * panels.Count);
+                panels.Add(pastMatchPanel);
             }
+            Program.MainForm.SetPastMatches(panels);
         }
 
         public async void LoadMatches(string summonerName, Region region) {

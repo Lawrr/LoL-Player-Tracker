@@ -79,7 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigManager.cs" />
-    <Compile Include="Forms\Panels\CurrentGamePanel.cs">
+    <Compile Include="Controls\CurrentGamePanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DatabaseManager.cs" />
@@ -89,11 +89,11 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Panels\CurrentGamePlayerPanel.cs">
+    <Compile Include="Controls\CurrentGamePlayerPanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="GameTracker.cs" />
-    <Compile Include="Forms\Panels\PastMatchPanel.cs">
+    <Compile Include="Controls\PastMatchPanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PlatformParser.cs" />

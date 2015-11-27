@@ -59,7 +59,7 @@ namespace LoLPlayerTracker {
                         LeagueOpened = true;
 
                         // Get current game
-                        LoadCurrentGame();
+                        OnGameStart();
 
                         // Open form
                         await PopupDelay();
@@ -75,7 +75,7 @@ namespace LoLPlayerTracker {
             await Task.Delay(3000);
         }
 
-        public async void LoadCurrentGame() {
+        public async void OnGameStart() {
             // Change status
             Program.MainForm.ChangeStatus(LOADING_GAME);
 

@@ -123,7 +123,7 @@ namespace LoLPlayerTracker {
         }
 
         private void LoadGameButton_Click(object sender, EventArgs e) {
-            Program.GameTracker.LoadCurrentGame();
+            Program.GameTracker.OnGameStart();
         }
 
         private void SearchButton_Click(object sender, EventArgs e) {

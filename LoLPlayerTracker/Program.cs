@@ -46,6 +46,7 @@ namespace LoLPlayerTracker {
         }
 
         private static void Application_ApplicationExit(object sender, EventArgs e) {
+            // Make it so the icon doesnt stay when exiting the program
             Tray.TrayIcon.Visible = false;
         }
 

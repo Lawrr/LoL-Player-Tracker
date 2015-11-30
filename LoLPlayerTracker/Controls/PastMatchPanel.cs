@@ -5,7 +5,7 @@ namespace LoLPlayerTracker {
     public class PastMatchPanel : Panel {
         public PastMatchPanel(int gameId) {
             // Set panel properties
-            Size = new Size(670, 100);
+            Size = new Size(661, 100);
             BackColor = Color.White;
 
             Label test = new Label();

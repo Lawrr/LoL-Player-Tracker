@@ -63,7 +63,7 @@
             // PastMatchesPanel
             // 
             this.PastMatchesPanel.AutoScroll = true;
-            this.PastMatchesPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.PastMatchesPanel.BackColor = System.Drawing.Color.White;
             this.PastMatchesPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PastMatchesPanel.Location = new System.Drawing.Point(12, 234);
             this.PastMatchesPanel.Name = "PastMatchesPanel";

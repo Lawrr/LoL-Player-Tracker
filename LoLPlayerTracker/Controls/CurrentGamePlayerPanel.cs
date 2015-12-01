@@ -8,6 +8,9 @@ using System.Windows.Forms;
 namespace LoLPlayerTracker {
     public class CurrentGamePlayerPanel : Panel {
 
+        public static Color WIN_BACK_COLOR = Color.FromArgb(0xFF, 0xB2, 0xE6, 0xAD);
+        public static Color LOSS_BACK_COLOR = Color.FromArgb(0xFF, 0xE6, 0xAD, 0xAD);
+
         public Participant Player { get; private set; }
 
         public CurrentGamePlayerPanel(Participant p, string iconLocation, List<League> leagues) {
@@ -39,13 +42,13 @@ namespace LoLPlayerTracker {
             rankLabel.Location = new Point(32, 16);
 
             Label winLabel = new Label();
-            winLabel.BackColor = Color.FromArgb(0xFF, 0xB2, 0xE6, 0xAD);
+            winLabel.BackColor = WIN_BACK_COLOR;
             winLabel.Size = new Size(26, 16);
             winLabel.Location = new Point(98, 16);
             winLabel.TextAlign = ContentAlignment.MiddleCenter;
 
             Label lossLabel = new Label();
-            lossLabel.BackColor = Color.FromArgb(0xFF, 0xE6, 0xAD, 0xAD);
+            lossLabel.BackColor = LOSS_BACK_COLOR;
             lossLabel.Size = new Size(26, 16);
             lossLabel.Location = new Point(124, 16);
             lossLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -55,7 +58,10 @@ namespace LoLPlayerTracker {
 
             // Set rank text
             try {
-                rankLabel.Text = leagues[0].Tier.ToString() + " " + leagues[0].Entries[0].Division;
+                // Try to get ranked stats
+                String rankedTier = leagues[0].Tier.ToString();
+                String rankedDivision = leagues[0].Entries[0].Division;
+                rankLabel.Text = String.Format("%s %s", rankedTier, rankedDivision);
             } catch (Exception e) {
                 rankLabel.Text = "Unranked";
             }

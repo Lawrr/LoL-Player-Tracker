@@ -34,6 +34,7 @@ namespace LoLPlayerTracker {
                 try {
                     playerPanel = new CurrentGamePlayerPanel(p, iconLocation, leagues[p.SummonerId]);
                 } catch (KeyNotFoundException e) {
+                    // No ranked stats
                     playerPanel = new CurrentGamePlayerPanel(p, iconLocation, new List<League>());
                 }
                 playerPanel.Location = new Point(155 * teamIndex, 36 * teamNumPlayers[teamIndex]);

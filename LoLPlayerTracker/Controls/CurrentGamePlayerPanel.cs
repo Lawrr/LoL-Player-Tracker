@@ -61,7 +61,7 @@ namespace LoLPlayerTracker {
                 // Try to get ranked stats
                 String rankedTier = leagues[0].Tier.ToString();
                 String rankedDivision = leagues[0].Entries[0].Division;
-                rankLabel.Text = String.Format("%s %s", rankedTier, rankedDivision);
+                rankLabel.Text = String.Format("{0} {1}", rankedTier, rankedDivision);
             } catch (Exception e) {
                 rankLabel.Text = "Unranked";
             }

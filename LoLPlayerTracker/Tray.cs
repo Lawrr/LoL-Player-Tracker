@@ -14,9 +14,9 @@ namespace LoLPlayerTracker {
         private void InitializeTray() {
             // Context menu
             ContextMenu = new ContextMenu();
-            ContextMenu.MenuItems.Add("Open " + Program.ProgramName, TrayIcon_OnOpenClicked);
+            ContextMenu.MenuItems.Add("Open " + Program.ProgramName, TrayIcon_OpenClick);
             ContextMenu.MenuItems.Add("-");
-            ContextMenu.MenuItems.Add("Exit", TrayIcon_OnExitClicked);
+            ContextMenu.MenuItems.Add("Exit", TrayIcon_ExitClick);
 
             // Tray icon
             TrayIcon = new NotifyIcon();
@@ -33,11 +33,11 @@ namespace LoLPlayerTracker {
             Program.MainForm.Open();
         }
         
-        private void TrayIcon_OnOpenClicked(object sender, EventArgs e) {
+        private void TrayIcon_OpenClick(object sender, EventArgs e) {
             Program.MainForm.Open();
         }
 
-        private void TrayIcon_OnExitClicked(object sender, EventArgs e) {
+        private void TrayIcon_ExitClick(object sender, EventArgs e) {
             Application.ExitThread();
         }
     }

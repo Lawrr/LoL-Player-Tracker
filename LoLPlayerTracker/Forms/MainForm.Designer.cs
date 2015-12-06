@@ -1,4 +1,6 @@
-﻿namespace LoLPlayerTracker {
+﻿using System;
+
+namespace LoLPlayerTracker {
     partial class MainForm {
         /// <summary>
         /// Required designer variable.
@@ -195,7 +197,7 @@
             this.Controls.Add(this.PastMatchesPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "MainForm";
-            this.Text = "LoL Player Tracker";
+            this.Text = String.Format("{0} {1}", Program.ProgramName, Program.ProgramVersion);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_FormLoad);
             this.SettingsGroupBox.ResumeLayout(false);

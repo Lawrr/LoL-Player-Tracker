@@ -6,6 +6,7 @@ namespace LoLPlayerTracker {
     static class Program {
         // Constants
         public static string ProgramName { get; private set; } = "LoL Player Tracker";
+        public static string ProgramVersion { get; private set; } = "0.9.0";
         public static string LeagueProcessName { get; private set; } = "League of Legends";
         public static string ClientProcessName { get; private set; } = "LolClient";
 

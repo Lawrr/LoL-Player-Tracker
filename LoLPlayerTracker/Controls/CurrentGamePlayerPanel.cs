@@ -35,7 +35,7 @@ namespace LoLPlayerTracker {
             nameLabel.BackColor = Color.White;
             nameLabel.Size = new Size(118, 16);
             nameLabel.Location = new Point(32, 0);
-            
+
             Label rankLabel = new Label();
             rankLabel.BackColor = Color.LightGray;
             rankLabel.Size = new Size(66, 16);
@@ -57,12 +57,17 @@ namespace LoLPlayerTracker {
             nameLabel.Text = p.SummonerName;
 
             // Set rank text
-            try {
-                // Try to get ranked stats
-                String rankedTier = leagues[0].Tier.ToString();
-                String rankedDivision = leagues[0].Entries[0].Division;
-                rankLabel.Text = String.Format("{0} {1}", rankedTier, rankedDivision);
-            } catch (Exception e) {
+            bool rankFound = false;
+            foreach (League l in leagues) {
+                if (l.Queue == RiotSharp.Queue.RankedSolo5x5) {
+                    String rankedTier = l.Tier.ToString();
+                    String rankedDivision = l.Entries[0].Division;
+                    rankLabel.Text = String.Format("{0} {1}", rankedTier, rankedDivision);
+                    rankFound = true;
+                    break;
+                }
+            }
+            if (!rankFound) {
                 rankLabel.Text = "Unranked";
             }
 

@@ -1,4 +1,5 @@
-﻿using RiotSharp;
+﻿using LoLPlayerTracker.Exceptions;
+using RiotSharp;
 using System;
 using System.Windows.Forms;
 
@@ -36,7 +37,14 @@ namespace LoLPlayerTracker {
             RiotApi = RiotApi.GetInstance(Secrets.RIOT_API_KEY);
             StaticRiotApi = StaticRiotApi.GetInstance(Secrets.RIOT_API_KEY);
 
-            Region region = RegionParser.Parse(ConfigManager.Get("Region"));
+            // Get patch version for the region
+            Region region;
+            try {
+                region = RegionParser.Parse(ConfigManager.Get("Region"));
+            } catch (RegionNotFoundException e) {
+                region = Region.na;
+                ConfigManager.Set("Region", region.ToString());
+            }
             PatchVersion = StaticRiotApi.GetVersions(region)[0];
 
             // Event handlers

@@ -26,8 +26,8 @@ namespace LoLPlayerTracker {
 
             // Region
             string savedRegion = ConfigManager.Get("Region");
-            if (RegionComboBox.Items.IndexOf(savedRegion) != -1) {
-                RegionComboBox.SelectedIndex = RegionComboBox.Items.IndexOf(savedRegion);
+            if (RegionComboBox.Items.IndexOf(savedRegion.ToUpper()) != -1) {
+                RegionComboBox.SelectedIndex = RegionComboBox.Items.IndexOf(savedRegion.ToUpper());
             } else {
                 RegionComboBox.SelectedIndex = 0;
             }

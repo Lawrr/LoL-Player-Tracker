@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RiotSharp;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -101,8 +102,8 @@ namespace LoLPlayerTracker {
             return SummonerNameTextBox.Text;
         }
 
-        public string GetRegion() {
-            return RegionComboBox.SelectedItem.ToString();
+        public Region GetRegion() {
+            return RegionParser.Parse(RegionComboBox.SelectedItem.ToString());
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
@@ -119,7 +120,7 @@ namespace LoLPlayerTracker {
         }
 
         private void RegionComboBox_SelectedIndexChanged(object sender, EventArgs e) {
-            ConfigManager.Set("Region", GetRegion());
+            ConfigManager.Set("Region", GetRegion().ToString());
         }
 
         private void LoadGameButton_Click(object sender, EventArgs e) {
@@ -127,7 +128,7 @@ namespace LoLPlayerTracker {
         }
 
         private void SearchButton_Click(object sender, EventArgs e) {
-            Program.GameTracker.LoadMatches(SearchTextBox.Text, RegionParser.Parse(GetRegion()));
+            Program.GameTracker.LoadMatches(SearchTextBox.Text, GetRegion());
         }
     }
 }

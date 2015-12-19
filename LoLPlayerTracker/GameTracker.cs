@@ -81,7 +81,7 @@ namespace LoLPlayerTracker {
 
             // Get data on what game to load
             string summonerName = Program.MainForm.GetSummonerName();
-            Region region = RegionParser.Parse(Program.MainForm.GetRegion());
+            Region region = Program.MainForm.GetRegion();
             Platform platform = PlatformParser.Parse(region);
 
             try {

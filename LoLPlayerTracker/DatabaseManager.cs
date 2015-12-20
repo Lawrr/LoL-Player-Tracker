@@ -12,10 +12,10 @@ namespace LoLPlayerTracker {
         public SQLiteConnection dbConnection;
 
         public DatabaseManager(string dbName, int dbVersion) {
-            InitDb(dbName, dbVersion);
+            InitDatabase(dbName, dbVersion);
         }
 
-        public void InitDb(string dbName, int dbVersion) {
+        public void InitDatabase(string dbName, int dbVersion) {
             // Create database if it does not exist
             bool newDb = false;
             if (!File.Exists(dbName)) {

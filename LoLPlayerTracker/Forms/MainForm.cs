@@ -15,10 +15,10 @@ namespace LoLPlayerTracker {
 
         public MainForm() {
             InitializeComponent();
-            Init();
+            InitForm();
         }
 
-        public void Init() {
+        public void InitForm() {
             Icon = Properties.Resources.Icon;
 
             // Summoner name

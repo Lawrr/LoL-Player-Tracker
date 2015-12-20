@@ -7,7 +7,12 @@ using System.Windows.Forms;
 
 namespace LoLPlayerTracker {
     public class CurrentGamePanel : Panel {
+
         public CurrentGamePanel(CurrentGame game, List<ChampionStatic> championStatics, Dictionary<long, List<League>> leagues) {
+            InitPanel(game, championStatics, leagues);
+        }
+
+        private void InitPanel(CurrentGame game, List<ChampionStatic> championStatics, Dictionary<long, List<League>> leagues) {
             // Set panel properties
             Size = new Size(320, 180);
 
@@ -44,5 +49,6 @@ namespace LoLPlayerTracker {
                 Controls.Add(playerPanel);
             }
         }
+
     }
 }

@@ -33,48 +33,6 @@ namespace LoLPlayerTracker {
             clientCheckTimer.Enabled = true;
         }
 
-        private async void OnClientCheck(object sender, ElapsedEventArgs e) {
-            // Check if we're on the main thread
-            if (Program.MainForm.InvokeRequired) {
-                // Set delegate to invoke on main thread
-                OnClientCheckCallback d = new OnClientCheckCallback(OnClientCheck);
-                Program.MainForm.Invoke(d, new object[] { sender, e });
-            } else {
-                // Find league process
-                Process[] processes = Process.GetProcessesByName(Program.LeagueProcessName);
-
-                // Check if league opened
-                if (processes.Length == 0) {
-                    // League not opened
-                    if (LeagueOpened) {
-                        LeagueOpened = false;
-
-                        // Change GUI
-                        Program.MainForm.ChangeStatus(WAITING_FOR_GAME);
-                        Program.MainForm.SetCurrentGamePanel(null);
-                    }
-                } else {
-                    // League opened
-                    if (!LeagueOpened) {
-                        LeagueOpened = true;
-
-                        // Get current game
-                        OnGameStart();
-
-                        // Open form
-                        await PopupDelay();
-                        Program.MainForm.Open();
-                    }
-                }
-            }
-        }
-
-        public async Task PopupDelay() {
-            // Delay for when league opens and goes fullscreen
-            // Wait 3 seconds for it to go into fullscreen mode before popping up the form
-            await Task.Delay(3000);
-        }
-
         public async void OnGameStart() {
             // Change status
             Program.MainForm.ChangeStatus(LOADING_GAME);
@@ -130,5 +88,48 @@ namespace LoLPlayerTracker {
             Summoner summoner = await Program.RiotApi.GetSummonerAsync(region, summonerName);
             LoadMatches(summoner.Id);
         }
+
+        private async void OnClientCheck(object sender, ElapsedEventArgs e) {
+            // Check if we're on the main thread
+            if (Program.MainForm.InvokeRequired) {
+                // Set delegate to invoke on main thread
+                OnClientCheckCallback d = new OnClientCheckCallback(OnClientCheck);
+                Program.MainForm.Invoke(d, new object[] { sender, e });
+            } else {
+                // Find league process
+                Process[] processes = Process.GetProcessesByName(Program.LeagueProcessName);
+
+                // Check if league opened
+                if (processes.Length == 0) {
+                    // League not opened
+                    if (LeagueOpened) {
+                        LeagueOpened = false;
+
+                        // Change GUI
+                        Program.MainForm.ChangeStatus(WAITING_FOR_GAME);
+                        Program.MainForm.SetCurrentGamePanel(null);
+                    }
+                } else {
+                    // League opened
+                    if (!LeagueOpened) {
+                        LeagueOpened = true;
+
+                        // Get current game
+                        OnGameStart();
+
+                        // Open form
+                        await PopupDelay();
+                        Program.MainForm.Open();
+                    }
+                }
+            }
+        }
+
+        private async Task PopupDelay() {
+            // Delay for when league opens and goes fullscreen
+            // Wait 3 seconds for it to go into fullscreen mode before popping up the form
+            await Task.Delay(3000);
+        }
+
     }
 }

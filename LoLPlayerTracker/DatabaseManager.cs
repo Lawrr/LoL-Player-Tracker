@@ -15,7 +15,23 @@ namespace LoLPlayerTracker {
             InitDatabase(dbName, dbVersion);
         }
 
-        public void InitDatabase(string dbName, int dbVersion) {
+        public int FindNumResults(string tableName, string key) {
+            string command = "SELECT count(*) from " + tableName + " WHERE Key = '" + key + "';";
+            int count = Convert.ToInt32(new SQLiteCommand(command, dbConnection).ExecuteScalar());
+            return count;
+        }
+
+        public void AddGame(Summoner summoner, CurrentGame game) {
+            foreach (Participant p in game.Participants) {
+                if (p.SummonerName != Program.MainForm.GetSummonerName()) {
+                    if (!KeyValueExists(PLAYERS_TABLE, p.SummonerId.ToString(), game.GameId.ToString())) {
+                        InsertRow(PLAYERS_TABLE, p.SummonerId.ToString(), game.GameId.ToString());
+                    }
+                }
+            }
+        }
+
+        private void InitDatabase(string dbName, int dbVersion) {
             // Create database if it does not exist
             bool newDb = false;
             if (!File.Exists(dbName)) {
@@ -33,46 +49,30 @@ namespace LoLPlayerTracker {
             }
         }
 
-        public void CreateDatabase(string dbName) {
+        private void CreateDatabase(string dbName) {
             SQLiteConnection.CreateFile(dbName);
         }
 
-        public void CreateTable(string tableName, string keyType, string valueType) {
+        private void CreateTable(string tableName, string keyType, string valueType) {
             string command = "CREATE TABLE " + tableName + " (Key " + keyType + ", Value " + valueType + ");";
             new SQLiteCommand(command, dbConnection).ExecuteNonQuery();
         }
 
-        public void InsertRow(string tableName, string key, string value) {
+        private void InsertRow(string tableName, string key, string value) {
             string command = "INSERT INTO " + tableName + " (Key, Value) values (" + key + ", " + value + ");";
             new SQLiteCommand(command, dbConnection).ExecuteNonQuery();
         }
 
-        public SQLiteDataReader FindKey(string tableName, string key) {
+        private SQLiteDataReader FindKey(string tableName, string key) {
             string command = "SELECT * from " + tableName + " WHERE Key = " + key + " ORDER BY key DESC;";
             SQLiteDataReader reader = new SQLiteCommand(command, dbConnection).ExecuteReader();
             return reader;
         }
 
-        public bool KeyValueExists(string tableName, string key, string value) {
+        private bool KeyValueExists(string tableName, string key, string value) {
             string command = "SELECT * from " + tableName + " WHERE Key = " + key + " AND Value = " + value + ";";
             SQLiteDataReader reader = new SQLiteCommand(command, dbConnection).ExecuteReader();
             return reader.Read();
-        }
-
-        public int FindNumResults(string tableName, string key) {
-            string command = "SELECT count(*) from " + tableName + " WHERE Key = '" + key + "';";
-            int count = Convert.ToInt32(new SQLiteCommand(command, dbConnection).ExecuteScalar());
-            return count;
-        }
-
-        public void AddGame(Summoner summoner, CurrentGame game) {
-            foreach (Participant p in game.Participants) {
-                if (p.SummonerName != Program.MainForm.GetSummonerName()) {
-                    if (!KeyValueExists(PLAYERS_TABLE, p.SummonerId.ToString(), game.GameId.ToString())) {
-                        InsertRow(PLAYERS_TABLE, p.SummonerId.ToString(), game.GameId.ToString());
-                    }
-                }
-            }
         }
 
     }

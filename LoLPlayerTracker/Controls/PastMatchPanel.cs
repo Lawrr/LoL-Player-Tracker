@@ -3,7 +3,12 @@ using System.Windows.Forms;
 
 namespace LoLPlayerTracker {
     public class PastMatchPanel : Panel {
+
         public PastMatchPanel(int gameId) {
+            InitPanel(gameId);
+        }
+
+        private void InitPanel(int gameId) {
             // Set panel properties
             Size = new Size(661, 100);
             BackColor = Color.White;
@@ -15,5 +20,6 @@ namespace LoLPlayerTracker {
 
             Controls.Add(test);
         }
+
     }
 }

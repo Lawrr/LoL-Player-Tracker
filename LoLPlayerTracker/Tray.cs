@@ -4,8 +4,8 @@ using System.Windows.Forms;
 namespace LoLPlayerTracker {
     public class Tray {
 
-        public NotifyIcon TrayIcon { get; private set; }
         private ContextMenu ContextMenu;
+        public NotifyIcon TrayIcon { get; private set; }
 
         public Tray() {
             InitTray();
@@ -40,5 +40,6 @@ namespace LoLPlayerTracker {
         private void TrayIcon_ExitClick(object sender, EventArgs e) {
             Application.ExitThread();
         }
+
     }
 }

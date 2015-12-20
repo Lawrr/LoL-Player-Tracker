@@ -6,43 +6,16 @@ using System.Windows.Forms;
 namespace LoLPlayerTracker {
     public partial class MainForm : Form {
 
-        delegate void OnOpenCallback();
-        delegate void OnSetCurrentGamePanelCallback(CurrentGamePanel panel);
-        delegate void OnSetPastMatchesCallback(List<PastMatchPanel> panels);
-        delegate void OnChangeStatusCallback(string newStatus);
+        public delegate void OnOpenCallback();
+        public delegate void OnSetCurrentGamePanelCallback(CurrentGamePanel panel);
+        public delegate void OnSetPastMatchesCallback(List<PastMatchPanel> panels);
+        public delegate void OnChangeStatusCallback(string newStatus);
 
         public CurrentGamePanel CurrentGamePanel;
 
         public MainForm() {
             InitializeComponent();
             InitForm();
-        }
-
-        public void InitForm() {
-            // Icon
-            Icon = Properties.Resources.Icon;
-
-            // Summoner name
-            SummonerNameTextBox.Text = ConfigManager.Get("SummonerName");
-
-            // Region
-            string savedRegion = ConfigManager.Get("Region");
-            if (RegionComboBox.Items.IndexOf(savedRegion.ToUpper()) != -1) {
-                RegionComboBox.SelectedIndex = RegionComboBox.Items.IndexOf(savedRegion.ToUpper());
-            } else {
-                RegionComboBox.SelectedIndex = 0;
-            }
-
-            // Status
-            ChangeStatus(GameTracker.WAITING_FOR_GAME);
-        }
-
-        private void MainForm_FormLoad(object sender, EventArgs e) {
-            CenterToScreen();
-            BringToFront();
-
-            // Set focus to the past matches panel
-            ActiveControl = PastMatchesPanel;
         }
 
         public void Open() {
@@ -109,6 +82,33 @@ namespace LoLPlayerTracker {
             return RegionParser.Parse(RegionComboBox.SelectedItem.ToString());
         }
 
+        private void InitForm() {
+            // Icon
+            Icon = Properties.Resources.Icon;
+
+            // Summoner name
+            SummonerNameTextBox.Text = ConfigManager.Get("SummonerName");
+
+            // Region
+            string savedRegion = ConfigManager.Get("Region");
+            if (RegionComboBox.Items.IndexOf(savedRegion.ToUpper()) != -1) {
+                RegionComboBox.SelectedIndex = RegionComboBox.Items.IndexOf(savedRegion.ToUpper());
+            } else {
+                RegionComboBox.SelectedIndex = 0;
+            }
+
+            // Status
+            ChangeStatus(GameTracker.WAITING_FOR_GAME);
+        }
+
+        private void MainForm_FormLoad(object sender, EventArgs e) {
+            CenterToScreen();
+            BringToFront();
+
+            // Set focus to the past matches panel
+            ActiveControl = PastMatchesPanel;
+        }
+
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
             Hide();
             e.Cancel = true;
@@ -133,5 +133,6 @@ namespace LoLPlayerTracker {
         private void SearchButton_Click(object sender, EventArgs e) {
             Program.GameTracker.LoadMatches(SearchTextBox.Text, GetRegion());
         }
+
     }
 }

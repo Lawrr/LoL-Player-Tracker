@@ -19,6 +19,7 @@ namespace LoLPlayerTracker {
         }
 
         public void InitForm() {
+            // Icon
             Icon = Properties.Resources.Icon;
 
             // Summoner name
@@ -39,6 +40,8 @@ namespace LoLPlayerTracker {
         private void MainForm_FormLoad(object sender, EventArgs e) {
             CenterToScreen();
             BringToFront();
+
+            // Set focus to the past matches panel
             ActiveControl = PastMatchesPanel;
         }
 
@@ -62,7 +65,7 @@ namespace LoLPlayerTracker {
                 OnSetCurrentGamePanelCallback d = new OnSetCurrentGamePanelCallback(SetCurrentGamePanel);
                 Invoke(d, new object[] { panel });
             } else {
-                // Remove old panel and add new one
+                // Remove old game panel and add new one
                 CurrentGameGroupBox.Controls.Remove(CurrentGamePanel);
                 if (panel != null) {
                     panel.Location = new System.Drawing.Point(14, 26);
@@ -79,7 +82,7 @@ namespace LoLPlayerTracker {
                 OnSetPastMatchesCallback d = new OnSetPastMatchesCallback(SetPastMatches);
                 Invoke(d, new object[] { panels });
             } else {
-                // Remove old matches and add new ones
+                // Remove currently displayed past matches and add new ones
                 PastMatchesPanel.Controls.Clear();
                 foreach (PastMatchPanel p in panels) {
                     PastMatchesPanel.Controls.Add(p);

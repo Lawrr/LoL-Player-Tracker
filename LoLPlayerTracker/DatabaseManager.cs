@@ -33,16 +33,6 @@ namespace LoLPlayerTracker {
             }
         }
 
-        public void AddGame(Summoner summoner, CurrentGame game) {
-            foreach (Participant p in game.Participants) {
-                if (p.SummonerName != Program.MainForm.GetSummonerName()) {
-                    if (!KeyValueExists(PLAYERS_TABLE, p.SummonerId.ToString(), game.GameId.ToString())) {
-                        InsertRow(PLAYERS_TABLE, p.SummonerId.ToString(), game.GameId.ToString());
-                    }
-                }
-            }
-        }
-
         public void CreateDatabase(string dbName) {
             SQLiteConnection.CreateFile(dbName);
         }
@@ -74,5 +64,16 @@ namespace LoLPlayerTracker {
             int count = Convert.ToInt32(new SQLiteCommand(command, dbConnection).ExecuteScalar());
             return count;
         }
+
+        public void AddGame(Summoner summoner, CurrentGame game) {
+            foreach (Participant p in game.Participants) {
+                if (p.SummonerName != Program.MainForm.GetSummonerName()) {
+                    if (!KeyValueExists(PLAYERS_TABLE, p.SummonerId.ToString(), game.GameId.ToString())) {
+                        InsertRow(PLAYERS_TABLE, p.SummonerId.ToString(), game.GameId.ToString());
+                    }
+                }
+            }
+        }
+
     }
 }

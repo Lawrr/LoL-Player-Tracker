@@ -26,7 +26,7 @@ namespace LoLPlayerTracker {
             // Init variables
             LeagueOpened = false;
 
-            // Initialise timer
+            // Init timer
             Timer clientCheckTimer = new Timer();
             clientCheckTimer.Elapsed += new ElapsedEventHandler(OnClientCheck);
             clientCheckTimer.Interval = 1000;

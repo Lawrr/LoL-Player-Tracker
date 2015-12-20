@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace LoLPlayerTracker {
+namespace LoLPlayerTracker.Ui.Controls {
     public class CurrentGamePanel : Panel {
 
         public CurrentGamePanel(CurrentGame game, List<ChampionStatic> championStatics, Dictionary<long, List<League>> leagues) {

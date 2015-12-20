@@ -79,22 +79,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigManager.cs" />
-    <Compile Include="Controls\CurrentGamePanel.cs">
+    <Compile Include="Ui\Controls\CurrentGamePanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DatabaseManager.cs" />
     <Compile Include="Exceptions\RegionNotFoundException.cs" />
-    <Compile Include="Forms\MainForm.cs">
+    <Compile Include="Ui\Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\MainForm.Designer.cs">
+    <Compile Include="Ui\Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CurrentGamePlayerPanel.cs">
+    <Compile Include="Ui\Controls\CurrentGamePlayerPanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="GameTracker.cs" />
-    <Compile Include="Controls\PastMatchPanel.cs">
+    <Compile Include="Ui\Controls\PastMatchPanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PlatformParser.cs" />
@@ -103,7 +103,7 @@
     <Compile Include="RegionParser.cs" />
     <Compile Include="Secrets.cs" />
     <Compile Include="Tray.cs" />
-    <EmbeddedResource Include="Forms\MainForm.resx">
+    <EmbeddedResource Include="Ui\Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

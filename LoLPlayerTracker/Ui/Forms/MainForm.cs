@@ -1,9 +1,10 @@
-﻿using RiotSharp;
+﻿using LoLPlayerTracker.Ui.Controls;
+using RiotSharp;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace LoLPlayerTracker {
+namespace LoLPlayerTracker.Ui.Forms {
     public partial class MainForm : Form {
 
         public delegate void OnOpenCallback();

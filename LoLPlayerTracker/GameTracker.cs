@@ -1,4 +1,5 @@
-﻿using RiotSharp;
+﻿using LoLPlayerTracker.Ui.Controls;
+using RiotSharp;
 using RiotSharp.CurrentGameEndpoint;
 using RiotSharp.LeagueEndpoint;
 using RiotSharp.StaticDataEndpoint;

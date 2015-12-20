@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LoLPlayerTracker {
+namespace LoLPlayerTracker.Ui.Forms {
     partial class MainForm {
         /// <summary>
         /// Required designer variable.

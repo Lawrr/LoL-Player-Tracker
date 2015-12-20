@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace LoLPlayerTracker {
+namespace LoLPlayerTracker.Ui.Controls {
     public class CurrentGamePlayerPanel : Panel {
 
         public static Color WIN_BACK_COLOR = Color.FromArgb(0xFF, 0xB2, 0xE6, 0xAD);

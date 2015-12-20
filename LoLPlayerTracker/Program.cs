@@ -1,4 +1,5 @@
 ﻿using LoLPlayerTracker.Exceptions;
+using LoLPlayerTracker.Ui.Forms;
 using RiotSharp;
 using System;
 using System.Windows.Forms;

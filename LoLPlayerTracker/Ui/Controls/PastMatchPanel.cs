@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace LoLPlayerTracker {
+namespace LoLPlayerTracker.Ui.Controls {
     public class PastMatchPanel : Panel {
 
         public PastMatchPanel(int gameId) {

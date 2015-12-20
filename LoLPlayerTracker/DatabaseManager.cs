@@ -15,6 +15,12 @@ namespace LoLPlayerTracker {
             InitDatabase(dbName, dbVersion);
         }
 
+        public SQLiteDataReader FindKey(string tableName, string key) {
+            string command = "SELECT * from " + tableName + " WHERE Key = " + key + " ORDER BY key DESC;";
+            SQLiteDataReader reader = new SQLiteCommand(command, dbConnection).ExecuteReader();
+            return reader;
+        }
+
         public int FindNumResults(string tableName, string key) {
             string command = "SELECT count(*) from " + tableName + " WHERE Key = '" + key + "';";
             int count = Convert.ToInt32(new SQLiteCommand(command, dbConnection).ExecuteScalar());
@@ -61,12 +67,6 @@ namespace LoLPlayerTracker {
         private void InsertRow(string tableName, string key, string value) {
             string command = "INSERT INTO " + tableName + " (Key, Value) values (" + key + ", " + value + ");";
             new SQLiteCommand(command, dbConnection).ExecuteNonQuery();
-        }
-
-        private SQLiteDataReader FindKey(string tableName, string key) {
-            string command = "SELECT * from " + tableName + " WHERE Key = " + key + " ORDER BY key DESC;";
-            SQLiteDataReader reader = new SQLiteCommand(command, dbConnection).ExecuteReader();
-            return reader;
         }
 
         private bool KeyValueExists(string tableName, string key, string value) {

@@ -7,10 +7,10 @@ using System.Windows.Forms;
 namespace LoLPlayerTracker {
     static class Program {
         // Constants
-        public static string ProgramName { get; private set; } = "LoL Player Tracker";
-        public static string ProgramVersion { get; private set; } = "0.9.0";
-        public static string LeagueProcessName { get; private set; } = "League of Legends";
-        public static string ClientProcessName { get; private set; } = "LolClient";
+        public const string ProgramName = "LoL Player Tracker";
+        public const string ProgramVersion = "0.9.0";
+        public const string LeagueProcessName = "League of Legends";
+        public const string ClientProcessName = "LolClient";
 
         // Static objects
         public static MainForm MainForm { get; private set; }

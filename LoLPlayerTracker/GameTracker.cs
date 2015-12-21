@@ -14,10 +14,10 @@ using System.Timers;
 namespace LoLPlayerTracker {
     public class GameTracker {
 
-        public static string WAITING_FOR_GAME = "Waiting for game";
-        public static string LOADING_GAME = "Loading game";
-        public static string GAME_LOADED = "Game loaded";
-        public static string GAME_NOT_FOUND = "Game not found";
+        public const string WAITING_FOR_GAME = "Waiting for game";
+        public const string LOADING_GAME = "Loading game";
+        public const string GAME_LOADED = "Game loaded";
+        public const string GAME_NOT_FOUND = "Game not found";
 
         delegate void OnClientCheckCallback(object sender, ElapsedEventArgs e);
 

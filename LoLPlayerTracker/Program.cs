@@ -8,7 +8,7 @@ namespace LoLPlayerTracker {
     public static class Program {
         // Constants
         public const string ProgramName = "LoL Player Tracker";
-        public const string ProgramVersion = "0.9.0";
+        public const string ProgramVersion = "0.1.0";
         public const string LeagueProcessName = "League of Legends";
         public const string ClientProcessName = "LolClient";
 

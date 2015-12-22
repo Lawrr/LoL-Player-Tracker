@@ -30,11 +30,11 @@ namespace LoLPlayerTracker {
         }
 
         private void TrayIcon_DoubleClick(object sender, EventArgs e) {
-            Program.MainForm.Open();
+            Program.MainForm.ShowActivate();
         }
         
         private void TrayIcon_OpenClick(object sender, EventArgs e) {
-            Program.MainForm.Open();
+            Program.MainForm.ShowActivate();
         }
 
         private void TrayIcon_ExitClick(object sender, EventArgs e) {

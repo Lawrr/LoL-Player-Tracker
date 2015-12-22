@@ -12,14 +12,24 @@ using System.Threading.Tasks;
 using System.Timers;
 
 namespace LoLPlayerTracker {
+
+    public enum GameStatus {
+        WaitingForGame,
+        LoadingGame,
+        GameLoaded,
+        GameNotFound
+    }
+
+    public class GameStatusChangedEventArgs : EventArgs {
+        public GameStatus Status { get; private set; }
+        public GameStatusChangedEventArgs(GameStatus status) {
+            Status = status;
+        }
+    }
+
     public class GameTracker {
 
-        public const string WAITING_FOR_GAME = "Waiting for game";
-        public const string LOADING_GAME = "Loading game";
-        public const string GAME_LOADED = "Game loaded";
-        public const string GAME_NOT_FOUND = "Game not found";
-
-        delegate void OnClientCheckCallback(object sender, ElapsedEventArgs e);
+        public event EventHandler<GameStatusChangedEventArgs> GameStatusChanged;
 
         public bool LeagueOpened;
 
@@ -36,7 +46,7 @@ namespace LoLPlayerTracker {
 
         public async void OnGameStart() {
             // Change status
-            Program.MainForm.ChangeStatus(LOADING_GAME);
+            OnGameStatusChanged(GameStatus.LoadingGame);
 
             // Get data on what game to load
             string summonerName = Program.MainForm.GetSummonerName();
@@ -65,11 +75,10 @@ namespace LoLPlayerTracker {
                 // Change GUI for current game
                 CurrentGamePanel currentGamePanel = new CurrentGamePanel(game, championStatics, leagues);
                 Program.MainForm.SetCurrentGamePanel(currentGamePanel);
-                Program.MainForm.ChangeStatus(GAME_LOADED);
-
+                OnGameStatusChanged(GameStatus.GameLoaded);
             } catch (RiotSharpException e) {
                 // TODO stub
-                Program.MainForm.ChangeStatus(GAME_NOT_FOUND);
+                OnGameStatusChanged(GameStatus.GameNotFound);
             }
         }
 
@@ -91,37 +100,30 @@ namespace LoLPlayerTracker {
         }
 
         private async void OnClientCheck(object sender, ElapsedEventArgs e) {
-            // Check if we're on the main thread
-            if (Program.MainForm.InvokeRequired) {
-                // Set delegate to invoke on main thread
-                OnClientCheckCallback d = new OnClientCheckCallback(OnClientCheck);
-                Program.MainForm.Invoke(d, new object[] { sender, e });
+            // Find league process
+            Process[] processes = Process.GetProcessesByName(Program.LeagueProcessName);
+
+            // Check if league opened
+            if (processes.Length == 0) {
+                // League not opened
+                if (LeagueOpened) {
+                    LeagueOpened = false;
+
+                    // Change GUI
+                    OnGameStatusChanged(GameStatus.WaitingForGame);
+                    Program.MainForm.SetCurrentGamePanel(null);
+                }
             } else {
-                // Find league process
-                Process[] processes = Process.GetProcessesByName(Program.LeagueProcessName);
+                // League opened
+                if (!LeagueOpened) {
+                    LeagueOpened = true;
 
-                // Check if league opened
-                if (processes.Length == 0) {
-                    // League not opened
-                    if (LeagueOpened) {
-                        LeagueOpened = false;
+                    // Get current game
+                    OnGameStart();
 
-                        // Change GUI
-                        Program.MainForm.ChangeStatus(WAITING_FOR_GAME);
-                        Program.MainForm.SetCurrentGamePanel(null);
-                    }
-                } else {
-                    // League opened
-                    if (!LeagueOpened) {
-                        LeagueOpened = true;
-
-                        // Get current game
-                        OnGameStart();
-
-                        // Open form
-                        await PopupDelay();
-                        Program.MainForm.Open();
-                    }
+                    // Open form
+                    await PopupDelay();
+                    Program.MainForm.ShowActivate();
                 }
             }
         }
@@ -130,6 +132,12 @@ namespace LoLPlayerTracker {
             // Delay for when league opens and goes fullscreen
             // Wait 3 seconds for it to go into fullscreen mode before popping up the form
             await Task.Delay(3000);
+        }
+
+        private void OnGameStatusChanged(GameStatus status) {
+            if (GameStatusChanged != null) {
+                GameStatusChanged(this, new GameStatusChangedEventArgs(status));
+            }
         }
 
     }

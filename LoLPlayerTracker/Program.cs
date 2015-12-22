@@ -30,10 +30,10 @@ namespace LoLPlayerTracker {
             Application.SetCompatibleTextRenderingDefault(false);
 
             // Init static objects
-            MainForm = new MainForm();
-            Tray = new Tray();
             DatabaseManager = new DatabaseManager("db.sqlite", 3);
             GameTracker = new GameTracker();
+            MainForm = new MainForm();
+            Tray = new Tray();
 
             RiotApi = RiotApi.GetInstance(Secrets.RIOT_API_KEY);
             StaticRiotApi = StaticRiotApi.GetInstance(Secrets.RIOT_API_KEY);

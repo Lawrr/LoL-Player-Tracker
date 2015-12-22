@@ -45,6 +45,8 @@ namespace LoLPlayerTracker.Ui.Forms {
             // 
             // SummonerNameTextBox
             // 
+            this.SummonerNameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.SummonerNameTextBox.Location = new System.Drawing.Point(16, 42);
             this.SummonerNameTextBox.MaxLength = 16;
             this.SummonerNameTextBox.Name = "SummonerNameTextBox";
@@ -64,6 +66,9 @@ namespace LoLPlayerTracker.Ui.Forms {
             // 
             // PastMatchesPanel
             // 
+            this.PastMatchesPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.PastMatchesPanel.AutoScroll = true;
             this.PastMatchesPanel.BackColor = System.Drawing.Color.White;
             this.PastMatchesPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -84,6 +89,8 @@ namespace LoLPlayerTracker.Ui.Forms {
             // 
             // SettingsGroupBox
             // 
+            this.SettingsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.SettingsGroupBox.Controls.Add(this.RegionComboBox);
             this.SettingsGroupBox.Controls.Add(this.SummonerNameLabel);
             this.SettingsGroupBox.Controls.Add(this.SummonerNameTextBox);
@@ -96,6 +103,7 @@ namespace LoLPlayerTracker.Ui.Forms {
             // 
             // RegionComboBox
             // 
+            this.RegionComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.RegionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.RegionComboBox.FormattingEnabled = true;
             this.RegionComboBox.Items.AddRange(new object[] {
@@ -117,6 +125,7 @@ namespace LoLPlayerTracker.Ui.Forms {
             // 
             // SearchButton
             // 
+            this.SearchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.SearchButton.Location = new System.Drawing.Point(247, 41);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(75, 22);
@@ -136,6 +145,8 @@ namespace LoLPlayerTracker.Ui.Forms {
             // 
             // SearchTextBox
             // 
+            this.SearchTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.SearchTextBox.Location = new System.Drawing.Point(16, 42);
             this.SearchTextBox.MaxLength = 16;
             this.SearchTextBox.Name = "SearchTextBox";
@@ -145,6 +156,8 @@ namespace LoLPlayerTracker.Ui.Forms {
             // 
             // SearchGroupBox
             // 
+            this.SearchGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.SearchGroupBox.Controls.Add(this.SearchLabel);
             this.SearchGroupBox.Controls.Add(this.SearchTextBox);
             this.SearchGroupBox.Controls.Add(this.SearchButton);
@@ -157,6 +170,7 @@ namespace LoLPlayerTracker.Ui.Forms {
             // 
             // CurrentGameGroupBox
             // 
+            this.CurrentGameGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.CurrentGameGroupBox.Location = new System.Drawing.Point(357, 12);
             this.CurrentGameGroupBox.Name = "CurrentGameGroupBox";
             this.CurrentGameGroupBox.Size = new System.Drawing.Size(335, 216);
@@ -166,6 +180,8 @@ namespace LoLPlayerTracker.Ui.Forms {
             // 
             // StatusGroupBox
             // 
+            this.StatusGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.StatusGroupBox.Controls.Add(this.LoadGameButton);
             this.StatusGroupBox.Controls.Add(this.StatusLabel);
             this.StatusGroupBox.Location = new System.Drawing.Point(12, 12);
@@ -177,6 +193,7 @@ namespace LoLPlayerTracker.Ui.Forms {
             // 
             // LoadGameButton
             // 
+            this.LoadGameButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.LoadGameButton.Location = new System.Drawing.Point(247, 15);
             this.LoadGameButton.Name = "LoadGameButton";
             this.LoadGameButton.Size = new System.Drawing.Size(75, 23);
@@ -195,7 +212,7 @@ namespace LoLPlayerTracker.Ui.Forms {
             this.Controls.Add(this.SearchGroupBox);
             this.Controls.Add(this.SettingsGroupBox);
             this.Controls.Add(this.PastMatchesPanel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MinimumSize = new System.Drawing.Size(720, 720);
             this.Name = "MainForm";
             this.Text = String.Format("{0} {1}", Program.ProgramName, Program.ProgramVersion);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);

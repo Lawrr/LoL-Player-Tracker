@@ -21,6 +21,7 @@ namespace LoLPlayerTracker {
 
     public class GameStatusChangedEventArgs : EventArgs {
         public GameStatus Status { get; private set; }
+
         public GameStatusChangedEventArgs(GameStatus status) {
             Status = status;
         }

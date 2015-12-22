@@ -3,7 +3,6 @@ using System.Windows.Forms;
 
 namespace LoLPlayerTracker.Ui.Controls {
     public class PastMatchPanel : Panel {
-
         public PastMatchPanel(int gameId) {
             InitPanel(gameId);
         }
@@ -20,6 +19,5 @@ namespace LoLPlayerTracker.Ui.Controls {
 
             Controls.Add(test);
         }
-
     }
 }

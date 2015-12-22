@@ -6,7 +6,6 @@ using System.Windows.Forms;
 
 namespace LoLPlayerTracker.Ui.Forms {
     public partial class MainForm : Form {
-
         public CurrentGamePanel CurrentGamePanel;
 
         public MainForm() {
@@ -125,6 +124,5 @@ namespace LoLPlayerTracker.Ui.Forms {
         private void GameTracker_GameStatusChanged(object sender, GameStatusChangedEventArgs e) {
             SetStatus(e.Status);
         }
-
     }
 }

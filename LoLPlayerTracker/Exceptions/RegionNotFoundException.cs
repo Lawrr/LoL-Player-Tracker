@@ -2,7 +2,6 @@
 
 namespace LoLPlayerTracker.Exceptions {
     public class RegionNotFoundException : Exception {
-
         public RegionNotFoundException() {
         }
 
@@ -11,6 +10,5 @@ namespace LoLPlayerTracker.Exceptions {
 
         public RegionNotFoundException(string message, Exception inner) : base(message, inner) {
         }
-
     }
 }

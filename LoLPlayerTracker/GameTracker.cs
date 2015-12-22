@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 using System.Timers;
 
 namespace LoLPlayerTracker {
-
     public enum GameStatus {
         WaitingForGame,
         LoadingGame,
@@ -28,7 +27,6 @@ namespace LoLPlayerTracker {
     }
 
     public class GameTracker {
-
         public event EventHandler<GameStatusChangedEventArgs> GameStatusChanged;
 
         public bool LeagueOpened;
@@ -139,6 +137,5 @@ namespace LoLPlayerTracker {
                 GameStatusChanged(this, new GameStatusChangedEventArgs(status));
             }
         }
-
     }
 }

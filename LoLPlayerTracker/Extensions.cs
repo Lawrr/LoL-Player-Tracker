@@ -3,7 +3,6 @@ using System.Windows.Forms;
 
 namespace LoLPlayerTracker {
     public static class Extensions {
-
         /// <summary>
         /// Invoke thread-safe calls to windows forms controls.
         /// </summary>
@@ -35,6 +34,5 @@ namespace LoLPlayerTracker {
             form.BringToFront();
             form.Activate();
         }
-
     }
 }

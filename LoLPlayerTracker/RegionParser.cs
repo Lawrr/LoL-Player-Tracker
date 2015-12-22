@@ -4,7 +4,6 @@ using System;
 
 namespace LoLPlayerTracker {
     public static class RegionParser {
-
         public static Region Parse(string regionString) {
             Region region;
             try {
@@ -14,6 +13,5 @@ namespace LoLPlayerTracker {
             }
             return region;
         }
-
     }
 }

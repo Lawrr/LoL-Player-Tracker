@@ -2,7 +2,6 @@
 
 namespace LoLPlayerTracker {
     public static class PlatformParser {
-
         public static Platform Parse(Region region) {
             Platform platform;
             switch (region) {
@@ -42,6 +41,5 @@ namespace LoLPlayerTracker {
             }
             return platform;
         }
-
     }
 }

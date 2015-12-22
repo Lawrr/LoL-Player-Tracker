@@ -5,7 +5,7 @@ using System;
 using System.Windows.Forms;
 
 namespace LoLPlayerTracker {
-    static class Program {
+    public static class Program {
         // Constants
         public const string ProgramName = "LoL Player Tracker";
         public const string ProgramVersion = "0.9.0";
@@ -59,6 +59,5 @@ namespace LoLPlayerTracker {
             // Make it so the icon doesnt stay when exiting the program
             Tray.TrayIcon.Visible = false;
         }
-
     }
 }

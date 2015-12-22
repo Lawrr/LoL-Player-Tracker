@@ -6,7 +6,6 @@ using System.IO;
 
 namespace LoLPlayerTracker {
     public class DatabaseManager {
-
         public static string PLAYERS_TABLE = "Players";
 
         public SQLiteConnection dbConnection;
@@ -74,6 +73,5 @@ namespace LoLPlayerTracker {
             SQLiteDataReader reader = new SQLiteCommand(command, dbConnection).ExecuteReader();
             return reader.Read();
         }
-
     }
 }

@@ -7,7 +7,6 @@ using System.Windows.Forms;
 
 namespace LoLPlayerTracker.Ui.Controls {
     public class CurrentGamePlayerPanel : Panel {
-
         public static Color WIN_BACK_COLOR = Color.FromArgb(0xFF, 0xB2, 0xE6, 0xAD);
         public static Color LOSS_BACK_COLOR = Color.FromArgb(0xFF, 0xE6, 0xAD, 0xAD);
 
@@ -101,6 +100,5 @@ namespace LoLPlayerTracker.Ui.Controls {
         private void Panel_Click(object sender, EventArgs e) {
             Program.GameTracker.LoadMatches(Player.SummonerId);
         }
-
     }
 }

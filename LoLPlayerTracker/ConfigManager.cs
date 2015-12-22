@@ -3,7 +3,6 @@ using System.Windows.Forms;
 
 namespace LoLPlayerTracker {
     public static class ConfigManager {
-
         public static void Set(string key, string value) {
             Configuration Config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
             Config.AppSettings.Settings.Remove(key);
@@ -22,6 +21,5 @@ namespace LoLPlayerTracker {
         public static bool Exists(string key) {
             return (ConfigurationManager.AppSettings[key] != null);
         }
-
     }
 }

@@ -1,9 +1,6 @@
-﻿using RiotSharp;
-using RiotSharp.CurrentGameEndpoint;
-using RiotSharp.SummonerEndpoint;
+﻿using RiotSharp.CurrentGameEndpoint;
 using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using System.Timers;
 
 namespace LoLPlayerTracker {

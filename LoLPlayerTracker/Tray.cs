@@ -3,8 +3,9 @@ using System.Windows.Forms;
 
 namespace LoLPlayerTracker {
     public class Tray {
-        private ContextMenu ContextMenu;
         public NotifyIcon TrayIcon { get; private set; }
+
+        private ContextMenu ContextMenu;
 
         public Tray() {
             InitTray();

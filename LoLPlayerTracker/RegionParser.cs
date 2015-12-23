@@ -8,7 +8,7 @@ namespace LoLPlayerTracker {
             Region region;
             try {
                 region = (Region)Enum.Parse(typeof(Region), regionString, true);
-            } catch (ArgumentException e) {
+            } catch (ArgumentException) {
                 throw new RegionNotFoundException(String.Format("Could not find region '{0}'", regionString));
             }
             return region;

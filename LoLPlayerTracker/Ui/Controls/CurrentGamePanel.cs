@@ -7,11 +7,11 @@ using System.Windows.Forms;
 
 namespace LoLPlayerTracker.Ui.Controls {
     public class CurrentGamePanel : Panel {
-        public CurrentGamePanel(CurrentGame game, List<ChampionStatic> championStatics, Dictionary<long, List<League>> leagues) {
-            InitPanel(game, championStatics, leagues);
+        public CurrentGamePanel(CurrentGame currentGame, List<ChampionStatic> championStatics, Dictionary<long, List<League>> leagues) {
+            InitPanel(currentGame, championStatics, leagues);
         }
 
-        private void InitPanel(CurrentGame game, List<ChampionStatic> championStatics, Dictionary<long, List<League>> leagues) {
+        private void InitPanel(CurrentGame currentGame, List<ChampionStatic> championStatics, Dictionary<long, List<League>> leagues) {
             // Set panel properties
             Size = new Size(320, 180);
 
@@ -19,7 +19,7 @@ namespace LoLPlayerTracker.Ui.Controls {
             List<long> teamIds = new List<long>();
             List<int> teamNumPlayers = new List<int>();
 
-            foreach (Participant p in game.Participants) {
+            foreach (Participant p in currentGame.Participants) {
                 // Add new team for the game if it does not exist
                 if (!teamIds.Contains(p.TeamId)) {
                     teamIds.Add(p.TeamId);
@@ -33,11 +33,11 @@ namespace LoLPlayerTracker.Ui.Controls {
                 string iconLocation = "http://ddragon.leagueoflegends.com/cdn/" +
                                       Program.PatchVersion +
                                       "/img/champion/" +
-                                      championStatics[game.Participants.IndexOf(p)].Image.Full;
+                                      championStatics[currentGame.Participants.IndexOf(p)].Image.Full;
                 CurrentGamePlayerPanel playerPanel;
-                try {
+                if (leagues.ContainsKey(p.SummonerId)) {
                     playerPanel = new CurrentGamePlayerPanel(p, iconLocation, leagues[p.SummonerId]);
-                } catch (KeyNotFoundException e) {
+                } else {
                     // No ranked stats
                     playerPanel = new CurrentGamePlayerPanel(p, iconLocation, new List<League>());
                 }

@@ -1,5 +1,4 @@
 ﻿using RiotSharp.CurrentGameEndpoint;
-using RiotSharp.SummonerEndpoint;
 using System;
 using System.Data.SQLite;
 using System.IO;
@@ -8,7 +7,7 @@ namespace LoLPlayerTracker {
     public class DatabaseManager {
         public static string PLAYERS_TABLE = "Players";
 
-        public SQLiteConnection dbConnection;
+        private SQLiteConnection dbConnection;
 
         public DatabaseManager(string dbName, int dbVersion) {
             InitDatabase(dbName, dbVersion);
@@ -26,11 +25,11 @@ namespace LoLPlayerTracker {
             return count;
         }
 
-        public void AddGame(Summoner summoner, CurrentGame game) {
-            foreach (Participant p in game.Participants) {
+        public void AddGame(CurrentGame currentGame) {
+            foreach (Participant p in currentGame.Participants) {
                 if (p.SummonerName != Program.MainForm.GetSummonerName()) {
-                    if (!KeyValueExists(PLAYERS_TABLE, p.SummonerId.ToString(), game.GameId.ToString())) {
-                        InsertRow(PLAYERS_TABLE, p.SummonerId.ToString(), game.GameId.ToString());
+                    if (!KeyValueExists(PLAYERS_TABLE, p.SummonerId.ToString(), currentGame.GameId.ToString())) {
+                        InsertRow(PLAYERS_TABLE, p.SummonerId.ToString(), currentGame.GameId.ToString());
                     }
                 }
             }

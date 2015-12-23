@@ -23,16 +23,18 @@ namespace LoLPlayerTracker {
         /// </summary>
         /// <param name="form"></param>
         public static void ShowActivate(this Form form) {
-            if (!form.Visible) {
-                form.Show();
-            }
+            form.InvokeSafe(() => {
+                if (!form.Visible) {
+                    form.Show();
+                }
 
-            if (form.WindowState == FormWindowState.Minimized) {
-                form.WindowState = FormWindowState.Normal;
-            }
+                if (form.WindowState == FormWindowState.Minimized) {
+                    form.WindowState = FormWindowState.Normal;
+                }
 
-            form.BringToFront();
-            form.Activate();
+                form.BringToFront();
+                form.Activate();
+            });
         }
     }
 }

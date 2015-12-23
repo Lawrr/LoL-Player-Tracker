@@ -10,7 +10,7 @@ namespace LoLPlayerTracker.Ui.Controls {
         public static Color WIN_BACK_COLOR = Color.FromArgb(0xFF, 0xB2, 0xE6, 0xAD);
         public static Color LOSS_BACK_COLOR = Color.FromArgb(0xFF, 0xE6, 0xAD, 0xAD);
 
-        public Participant Player { get; private set; }
+        private Participant Player;
 
         public CurrentGamePlayerPanel(Participant p, string iconLocation, List<League> leagues) {
             InitPanel(p, iconLocation, leagues);
@@ -98,7 +98,8 @@ namespace LoLPlayerTracker.Ui.Controls {
         }
 
         private void Panel_Click(object sender, EventArgs e) {
-            Program.GameTracker.LoadMatches(Player.SummonerId);
+            // TODO stub. Currently just uses the Console.WriteLine in the method to confirm it is working
+            GameFetcher.GetPastMatchPanels(Program.MainForm.GetRegion(), Player.SummonerId);
         }
     }
 }

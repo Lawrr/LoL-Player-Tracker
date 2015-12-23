@@ -8,7 +8,7 @@ namespace LoLPlayerTracker {
     public static class Program {
         // Constants
         public const string ProgramName = "LoL Player Tracker";
-        public const string ProgramVersion = "0.1.0";
+        public const string ProgramVersion = "0.2.0";
         public const string LeagueProcessName = "League of Legends";
         public const string ClientProcessName = "LolClient";
 
@@ -42,7 +42,7 @@ namespace LoLPlayerTracker {
             Region region;
             try {
                 region = RegionParser.Parse(ConfigManager.Get("Region"));
-            } catch (RegionNotFoundException e) {
+            } catch (RegionNotFoundException) {
                 region = Region.na;
                 ConfigManager.Set("Region", region.ToString());
             }

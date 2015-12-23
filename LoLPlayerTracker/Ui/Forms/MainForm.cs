@@ -1,12 +1,15 @@
 ﻿using LoLPlayerTracker.Ui.Controls;
 using RiotSharp;
+using RiotSharp.CurrentGameEndpoint;
+using RiotSharp.SummonerEndpoint;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LoLPlayerTracker.Ui.Forms {
     public partial class MainForm : Form {
-        public CurrentGamePanel CurrentGamePanel;
+        private CurrentGamePanel CurrentGamePanel;
 
         public MainForm() {
             InitializeComponent();
@@ -43,16 +46,16 @@ namespace LoLPlayerTracker.Ui.Forms {
                 // Set status text
                 string statusString = "";
                 switch (status) {
-                    case GameStatus.WaitingForGame:
+                    case GameStatus.Idle:
                         statusString = "Waiting for game";
                         break;
-                    case GameStatus.LoadingGame:
+                    case GameStatus.Loading:
                         statusString = "Loading game";
                         break;
-                    case GameStatus.GameLoaded:
+                    case GameStatus.Loaded:
                         statusString = "Game loaded";
                         break;
-                    case GameStatus.GameNotFound:
+                    case GameStatus.NotFound:
                         statusString = "Game not found";
                         break;
                 }
@@ -61,11 +64,19 @@ namespace LoLPlayerTracker.Ui.Forms {
         }
 
         public string GetSummonerName() {
-            return SummonerNameTextBox.Text;
+            if (InvokeRequired) {
+                return (string)Invoke(new Func<string>(GetSummonerName));
+            } else {
+                return SummonerNameTextBox.Text;
+            }
         }
 
         public Region GetRegion() {
-            return RegionParser.Parse(RegionComboBox.SelectedItem.ToString());
+            if (InvokeRequired) {
+                return (Region)Invoke(new Func<Region>(GetRegion));
+            } else {
+                return RegionParser.Parse(RegionComboBox.SelectedItem.ToString());
+            }
         }
 
         private void InitForm() {
@@ -84,7 +95,7 @@ namespace LoLPlayerTracker.Ui.Forms {
             }
 
             // Status
-            SetStatus(GameStatus.WaitingForGame);
+            SetStatus(GameStatus.Idle);
         }
 
         private void MainForm_FormLoad(object sender, EventArgs e) {
@@ -113,16 +124,47 @@ namespace LoLPlayerTracker.Ui.Forms {
             ConfigManager.Set("Region", GetRegion().ToString());
         }
 
-        private void LoadGameButton_Click(object sender, EventArgs e) {
-            Program.GameTracker.OnGameStart();
+        private async void LoadGameButton_Click(object sender, EventArgs e) {
+            // Load current game data
+            CurrentGame currentGame = await GameFetcher.LoadCurrentGameAsync();
+            if (currentGame != null) {
+                GameTracker_GameStatusChanged(this, new GameStatusChangedEventArgs(GameStatus.Loaded, currentGame));
+            } else {
+                GameTracker_GameStatusChanged(this, new GameStatusChangedEventArgs(GameStatus.NotFound));   
+            }
         }
 
-        private void SearchButton_Click(object sender, EventArgs e) {
-            Program.GameTracker.LoadMatches(SearchTextBox.Text, GetRegion());
+        private async void SearchButton_Click(object sender, EventArgs e) {
+            Summoner summoner = await Program.RiotApi.GetSummonerAsync(GetRegion(), GetSummonerName());
+            SetPastMatches(GameFetcher.GetPastMatchPanels(GetRegion(), summoner.Id));
         }
 
-        private void GameTracker_GameStatusChanged(object sender, GameStatusChangedEventArgs e) {
+        private async void GameTracker_GameStatusChanged(object sender, GameStatusChangedEventArgs e) {
             SetStatus(e.Status);
+
+            // Additional things
+            switch (e.Status) {
+                case GameStatus.Idle:
+                    SetCurrentGamePanel(null);
+                    break;
+                case GameStatus.Loading:
+                    await Delay(3000);
+                    this.ShowActivate();
+                    break;
+                case GameStatus.Loaded:
+                    if (e.CurrentGame != null) {
+                        Program.DatabaseManager.AddGame(e.CurrentGame);
+                        SetCurrentGamePanel(await GameFetcher.GetCurrentGamePanelAsync(e.CurrentGame));
+                    }
+                    break;
+                case GameStatus.NotFound:
+                    SetCurrentGamePanel(null);
+                    break;
+            }
+        }
+
+        private async Task Delay(int ms) {
+            await Task.Delay(ms);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace LoLPlayerTracker {
         public static MainForm MainForm { get; private set; }
         public static Tray Tray { get; private set; }
         public static DatabaseManager DatabaseManager { get; private set; }
-        public static GameTracker GameTracker { get; private set; }
+        public static GameStatusTracker GameTracker { get; private set; }
         public static RiotApi RiotApi { get; private set; }
         public static StaticRiotApi StaticRiotApi { get; private set; }
         public static string PatchVersion { get; private set; }
@@ -31,7 +31,7 @@ namespace LoLPlayerTracker {
 
             // Init static objects
             DatabaseManager = new DatabaseManager("db.sqlite", 3);
-            GameTracker = new GameTracker();
+            GameTracker = new GameStatusTracker();
             MainForm = new MainForm();
             Tray = new Tray();
 

@@ -27,12 +27,12 @@ namespace LoLPlayerTracker {
         }
     }
 
-    public class GameTracker {
+    public class GameStatusTracker {
         public event EventHandler<GameStatusChangedEventArgs> GameStatusChanged;
 
         public bool LeagueOpened;
 
-        public GameTracker() {
+        public GameStatusTracker() {
             // Init variables
             LeagueOpened = false;
 

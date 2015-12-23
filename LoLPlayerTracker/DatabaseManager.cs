@@ -2,6 +2,7 @@
 using System;
 using System.Data.SQLite;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace LoLPlayerTracker {
     public class DatabaseManager {
@@ -25,14 +26,16 @@ namespace LoLPlayerTracker {
             return count;
         }
 
-        public void AddGame(CurrentGame currentGame) {
-            foreach (Participant p in currentGame.Participants) {
-                if (p.SummonerName != Program.MainForm.GetSummonerName()) {
-                    if (!KeyValueExists(PLAYERS_TABLE, p.SummonerId.ToString(), currentGame.GameId.ToString())) {
-                        InsertRow(PLAYERS_TABLE, p.SummonerId.ToString(), currentGame.GameId.ToString());
+        public async void AddGame(CurrentGame currentGame) {
+            await Task.Factory.StartNew(() => {
+                foreach (Participant p in currentGame.Participants) {
+                    if (p.SummonerName != Program.MainForm.GetSummonerName()) {
+                        if (!KeyValueExists(PLAYERS_TABLE, p.SummonerId.ToString(), currentGame.GameId.ToString())) {
+                            InsertRow(PLAYERS_TABLE, p.SummonerId.ToString(), currentGame.GameId.ToString());
+                        }
                     }
                 }
-            }
+            });
         }
 
         private void InitDatabase(string dbName, int dbVersion) {

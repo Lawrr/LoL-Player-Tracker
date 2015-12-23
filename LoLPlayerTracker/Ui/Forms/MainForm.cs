@@ -125,7 +125,7 @@ namespace LoLPlayerTracker.Ui.Forms {
         }
 
         private async void LoadGameButton_Click(object sender, EventArgs e) {
-            // Load current game data
+            GameTracker_GameStatusChanged(this, new GameStatusChangedEventArgs(GameStatus.Loading));
             CurrentGame currentGame = await GameFetcher.LoadCurrentGameAsync();
             if (currentGame != null) {
                 GameTracker_GameStatusChanged(this, new GameStatusChangedEventArgs(GameStatus.Loaded, currentGame));
@@ -153,8 +153,9 @@ namespace LoLPlayerTracker.Ui.Forms {
                     break;
                 case GameStatus.Loaded:
                     if (e.CurrentGame != null) {
+                        Task<CurrentGamePanel> currentGamePanelTask = GameFetcher.GetCurrentGamePanelAsync(e.CurrentGame);
                         Program.DatabaseManager.AddGame(e.CurrentGame);
-                        SetCurrentGamePanel(await GameFetcher.GetCurrentGamePanelAsync(e.CurrentGame));
+                        SetCurrentGamePanel(await currentGamePanelTask);
                     }
                     break;
                 case GameStatus.NotFound:

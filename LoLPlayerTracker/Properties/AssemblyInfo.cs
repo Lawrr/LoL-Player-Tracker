@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("A program which tracks which players you have played with before")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Lawrr")]
-[assembly: AssemblyProduct("LoL Player Tracker")]
+[assembly: AssemblyProduct("LoLPlayerTracker")]
 [assembly: AssemblyCopyright("Copyright © 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

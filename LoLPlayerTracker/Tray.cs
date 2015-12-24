@@ -14,13 +14,13 @@ namespace LoLPlayerTracker {
         private void InitTray() {
             // Context menu
             ContextMenu = new ContextMenu();
-            ContextMenu.MenuItems.Add("Open " + Program.ProgramName, TrayIcon_OpenClick);
+            ContextMenu.MenuItems.Add("Open " + Application.ProductName, TrayIcon_OpenClick);
             ContextMenu.MenuItems.Add("-");
             ContextMenu.MenuItems.Add("Exit", TrayIcon_ExitClick);
 
             // Tray icon
             TrayIcon = new NotifyIcon();
-            TrayIcon.Text = Program.ProgramName;
+            TrayIcon.Text = Application.ProductName;
             TrayIcon.Icon = Properties.Resources.Icon;
             TrayIcon.ContextMenu = ContextMenu;
             TrayIcon.Visible = true;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace LoLPlayerTracker.Ui.Forms {
     partial class MainForm {
@@ -214,7 +215,7 @@ namespace LoLPlayerTracker.Ui.Forms {
             this.Controls.Add(this.PastMatchesPanel);
             this.MinimumSize = new System.Drawing.Size(720, 720);
             this.Name = "MainForm";
-            this.Text = String.Format("{0} {1}", Program.ProgramName, Program.ProgramVersion);
+            this.Text = String.Format("{0} {1}", Application.ProductName, Application.ProductVersion);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_FormLoad);
             this.SettingsGroupBox.ResumeLayout(false);

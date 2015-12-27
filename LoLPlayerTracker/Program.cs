@@ -2,6 +2,8 @@
 using LoLPlayerTracker.Ui.Forms;
 using RiotSharp;
 using System;
+using System.Diagnostics;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace LoLPlayerTracker {
@@ -24,6 +26,20 @@ namespace LoLPlayerTracker {
         /// </summary>
         [STAThread]
         static void Main() {
+            // Check if only instance
+            bool firstInstance;
+            Mutex mutex = new Mutex(true, "1b48fc9e-cf16-4021-a0f8-206b958c65e2", out firstInstance);
+            if (!firstInstance) {
+                Process proc = Process.GetCurrentProcess();
+                foreach (Process p in Process.GetProcessesByName(proc.ProcessName)) {
+                    if (p.Id != proc.Id) {
+                        NativeMethods.SetForegroundWindow(p.MainWindowHandle);
+                        break;
+                    }
+                }
+                return;
+            }
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

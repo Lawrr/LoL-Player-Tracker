@@ -13,10 +13,6 @@ namespace LoLPlayerTracker.Ui.Controls {
         private Participant Player;
 
         public CurrentGamePlayerPanel(Participant p, string iconLocation, List<League> leagues) {
-            InitPanel(p, iconLocation, leagues);
-        }
-
-        private void InitPanel(Participant p, string iconLocation, List<League> leagues) {
             // Set variables
             Player = p;
 

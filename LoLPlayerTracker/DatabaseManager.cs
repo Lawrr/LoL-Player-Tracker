@@ -11,7 +11,21 @@ namespace LoLPlayerTracker {
         private SQLiteConnection dbConnection;
 
         public DatabaseManager(string dbName, int dbVersion) {
-            InitDatabase(dbName, dbVersion);
+            // Create database if it does not exist
+            bool newDb = false;
+            if (!File.Exists(dbName)) {
+                newDb = true;
+                CreateDatabase(dbName);
+            }
+
+            // Create connection
+            dbConnection = new SQLiteConnection("Data Source=" + dbName + ";Version=" + dbVersion.ToString() + ";");
+            dbConnection.Open();
+
+            // Create tables if they do not exist
+            if (newDb) {
+                CreateTable(PLAYERS_TABLE, "INT", "INT");
+            }
         }
 
         public SQLiteDataReader FindKey(string tableName, string key) {
@@ -36,24 +50,6 @@ namespace LoLPlayerTracker {
                     }
                 }
             });
-        }
-
-        private void InitDatabase(string dbName, int dbVersion) {
-            // Create database if it does not exist
-            bool newDb = false;
-            if (!File.Exists(dbName)) {
-                newDb = true;
-                CreateDatabase(dbName);
-            }
-
-            // Create connection
-            dbConnection = new SQLiteConnection("Data Source=" + dbName + ";Version=" + dbVersion.ToString() + ";");
-            dbConnection.Open();
-
-            // Create tables if they do not exist
-            if (newDb) {
-                CreateTable(PLAYERS_TABLE, "INT", "INT");
-            }
         }
 
         private void CreateDatabase(string dbName) {

@@ -13,7 +13,23 @@ namespace LoLPlayerTracker.Ui.Forms {
 
         public MainForm() {
             InitializeComponent();
-            InitForm();
+
+            // Icon
+            Icon = Properties.Resources.Icon;
+
+            // Summoner name
+            SummonerNameTextBox.Text = ConfigManager.Get("SummonerName");
+
+            // Region
+            string savedRegion = ConfigManager.Get("Region");
+            if (RegionComboBox.Items.IndexOf(savedRegion.ToUpper()) != -1) {
+                RegionComboBox.SelectedIndex = RegionComboBox.Items.IndexOf(savedRegion.ToUpper());
+            } else {
+                RegionComboBox.SelectedIndex = 0;
+            }
+
+            // Status
+            SetStatus(GameStatus.Idle);
 
             // Event handlers
             Program.GameTracker.GameStatusChanged += new EventHandler<GameStatusChangedEventArgs>(GameTracker_GameStatusChanged);
@@ -77,25 +93,6 @@ namespace LoLPlayerTracker.Ui.Forms {
             } else {
                 return RegionParser.Parse(RegionComboBox.SelectedItem.ToString());
             }
-        }
-
-        private void InitForm() {
-            // Icon
-            Icon = Properties.Resources.Icon;
-
-            // Summoner name
-            SummonerNameTextBox.Text = ConfigManager.Get("SummonerName");
-
-            // Region
-            string savedRegion = ConfigManager.Get("Region");
-            if (RegionComboBox.Items.IndexOf(savedRegion.ToUpper()) != -1) {
-                RegionComboBox.SelectedIndex = RegionComboBox.Items.IndexOf(savedRegion.ToUpper());
-            } else {
-                RegionComboBox.SelectedIndex = 0;
-            }
-
-            // Status
-            SetStatus(GameStatus.Idle);
         }
 
         private void MainForm_FormLoad(object sender, EventArgs e) {

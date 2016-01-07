@@ -11,10 +11,16 @@ namespace LoLPlayerTracker.Ui.Controls {
         public static Color PLAYED_AGAINST_BACK_COLOR = Color.FromArgb(0xFF, 0xE6, 0xAD, 0xAD);
 
         private Participant Player;
+        private bool selfPanel = false;
 
         public CurrentGamePlayerPanel(Participant p, string iconLocation, List<League> leagues) {
             // Set variables
             Player = p;
+
+            // Check if panel is for self
+            if (p.SummonerName.Replace(" ", "").ToLower() == Program.MainForm.GetSummonerName().Replace(" ", "").ToLower()) {
+                selfPanel = true;
+            }
 
             // Set panel properties
             Size = new Size(150, 32);
@@ -37,7 +43,7 @@ namespace LoLPlayerTracker.Ui.Controls {
 
             Label rankLabel = new Label();
             rankLabel.BackColor = Color.LightGray;
-            rankLabel.Size = new Size(66, 16);
+            rankLabel.Size = new Size(118, 16);
             rankLabel.Location = new Point(32, 16);
 
             Label playedWithLabel = new Label();
@@ -71,19 +77,20 @@ namespace LoLPlayerTracker.Ui.Controls {
             }
 
             // Set win/loss text if not self
-            if (p.SummonerName.Replace(" ", "").ToLower() != Program.MainForm.GetSummonerName().Replace(" ", "").ToLower()) {
+            if (!selfPanel) {
                 // Get num times you've played with the player (minus 1 to exclude current game)
                 int numGames = Program.DatabaseManager.FindNumResults(DatabaseManager.PLAYERS_TABLE, p.SummonerId.ToString()) - 1;
                 playedWithLabel.Text = numGames.ToString();
                 playedAgainstLabel.Text = "0";
+
+                Controls.Add(playedWithLabel);
+                Controls.Add(playedAgainstLabel);
             }
 
-            // Add label
+            // Add other controls
             Controls.Add(iconBox);
             Controls.Add(nameLabel);
             Controls.Add(rankLabel);
-            Controls.Add(playedWithLabel);
-            Controls.Add(playedAgainstLabel);
 
             // Add on click
             iconBox.Click += new EventHandler(Panel_Click);

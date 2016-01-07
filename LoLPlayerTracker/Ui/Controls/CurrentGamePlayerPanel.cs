@@ -7,8 +7,8 @@ using System.Windows.Forms;
 
 namespace LoLPlayerTracker.Ui.Controls {
     public class CurrentGamePlayerPanel : Panel {
-        public static Color WIN_BACK_COLOR = Color.FromArgb(0xFF, 0xB2, 0xE6, 0xAD);
-        public static Color LOSS_BACK_COLOR = Color.FromArgb(0xFF, 0xE6, 0xAD, 0xAD);
+        public static Color PLAYED_WITH_BACK_COLOR = Color.FromArgb(0xFF, 0x91, 0xD5, 0xFF);
+        public static Color PLAYED_AGAINST_BACK_COLOR = Color.FromArgb(0xFF, 0xE6, 0xAD, 0xAD);
 
         private Participant Player;
 
@@ -40,17 +40,17 @@ namespace LoLPlayerTracker.Ui.Controls {
             rankLabel.Size = new Size(66, 16);
             rankLabel.Location = new Point(32, 16);
 
-            Label winLabel = new Label();
-            winLabel.BackColor = WIN_BACK_COLOR;
-            winLabel.Size = new Size(26, 16);
-            winLabel.Location = new Point(98, 16);
-            winLabel.TextAlign = ContentAlignment.MiddleCenter;
+            Label playedWithLabel = new Label();
+            playedWithLabel.BackColor = PLAYED_WITH_BACK_COLOR;
+            playedWithLabel.Size = new Size(26, 16);
+            playedWithLabel.Location = new Point(98, 16);
+            playedWithLabel.TextAlign = ContentAlignment.MiddleCenter;
 
-            Label lossLabel = new Label();
-            lossLabel.BackColor = LOSS_BACK_COLOR;
-            lossLabel.Size = new Size(26, 16);
-            lossLabel.Location = new Point(124, 16);
-            lossLabel.TextAlign = ContentAlignment.MiddleCenter;
+            Label playedAgainstLabel = new Label();
+            playedAgainstLabel.BackColor = PLAYED_AGAINST_BACK_COLOR;
+            playedAgainstLabel.Size = new Size(26, 16);
+            playedAgainstLabel.Location = new Point(124, 16);
+            playedAgainstLabel.TextAlign = ContentAlignment.MiddleCenter;
 
             // Set name text
             nameLabel.Text = p.SummonerName;
@@ -74,23 +74,23 @@ namespace LoLPlayerTracker.Ui.Controls {
             if (p.SummonerName.Replace(" ", "").ToLower() != Program.MainForm.GetSummonerName().Replace(" ", "").ToLower()) {
                 // Get num times you've played with the player (minus 1 to exclude current game)
                 int numGames = Program.DatabaseManager.FindNumResults(DatabaseManager.PLAYERS_TABLE, p.SummonerId.ToString()) - 1;
-                winLabel.Text = numGames.ToString();
-                lossLabel.Text = "0";
+                playedWithLabel.Text = numGames.ToString();
+                playedAgainstLabel.Text = "0";
             }
 
             // Add label
             Controls.Add(iconBox);
             Controls.Add(nameLabel);
             Controls.Add(rankLabel);
-            Controls.Add(winLabel);
-            Controls.Add(lossLabel);
+            Controls.Add(playedWithLabel);
+            Controls.Add(playedAgainstLabel);
 
             // Add on click
             iconBox.Click += new EventHandler(Panel_Click);
             nameLabel.Click += new EventHandler(Panel_Click);
             rankLabel.Click += new EventHandler(Panel_Click);
-            winLabel.Click += new EventHandler(Panel_Click);
-            lossLabel.Click += new EventHandler(Panel_Click);
+            playedWithLabel.Click += new EventHandler(Panel_Click);
+            playedAgainstLabel.Click += new EventHandler(Panel_Click);
         }
 
         private void Panel_Click(object sender, EventArgs e) {

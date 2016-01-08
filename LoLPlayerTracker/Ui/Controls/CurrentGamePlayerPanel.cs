@@ -11,16 +11,10 @@ namespace LoLPlayerTracker.Ui.Controls {
         public static Color PLAYED_AGAINST_BACK_COLOR = Color.FromArgb(0xFF, 0xE6, 0xAD, 0xAD);
 
         private Participant Player;
-        private bool selfPanel = false;
 
-        public CurrentGamePlayerPanel(Participant p, string iconLocation, List<League> leagues) {
+        public CurrentGamePlayerPanel(Participant p, bool isSelf, string iconLocation, List<League> leagues) {
             // Set variables
             Player = p;
-
-            // Check if panel is for self
-            if (p.SummonerName.Replace(" ", "").ToLower() == Program.MainForm.GetSummonerName().Replace(" ", "").ToLower()) {
-                selfPanel = true;
-            }
 
             // Set panel properties
             Size = new Size(150, 32);
@@ -77,7 +71,7 @@ namespace LoLPlayerTracker.Ui.Controls {
             }
 
             // Set win/loss text if not self
-            if (!selfPanel) {
+            if (!isSelf) {
                 // Get num times you've played with the player (minus 1 to exclude current game)
                 int numGames = Program.DatabaseManager.FindNumResults(DatabaseManager.PLAYERS_TABLE, p.SummonerId.ToString()) - 1;
                 playedWithLabel.Text = numGames.ToString();

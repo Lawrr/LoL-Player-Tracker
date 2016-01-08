@@ -30,9 +30,8 @@ namespace LoLPlayerTracker {
             return currentGame;
         }
 
-        public static async Task<CurrentGamePanel> GetCurrentGamePanelAsync(CurrentGame currentGame) {
+        public static async Task<CurrentGamePanel> GetCurrentGamePanelAsync(CurrentGame currentGame, string summonerName, Region region) {
             CurrentGamePanel currentGamePanel;
-            Region region = Program.MainForm.GetRegion();
 
             if (currentGame != null) {
                 // Get champion data
@@ -48,7 +47,7 @@ namespace LoLPlayerTracker {
                 // Get league data
                 Dictionary<long, List<League>> leagues = await Program.RiotApi.GetLeaguesAsync(region, summonerIds);
 
-                currentGamePanel = new CurrentGamePanel(currentGame, championStatics, leagues);
+                currentGamePanel = new CurrentGamePanel(currentGame, summonerName, championStatics, leagues);
             } else {
                 currentGamePanel = null;
             }

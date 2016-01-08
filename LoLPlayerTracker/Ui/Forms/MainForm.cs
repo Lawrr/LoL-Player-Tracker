@@ -10,6 +10,10 @@ using System.Windows.Forms;
 namespace LoLPlayerTracker.Ui.Forms {
     public partial class MainForm : Form {
         private CurrentGamePanel CurrentGamePanel;
+        // Name which is compared to when loading a game
+        private string BufferedSummonerName;
+        // Region which is compared to when loading a game
+        private Region BufferedRegion;
 
         public MainForm() {
             InitializeComponent();
@@ -27,6 +31,10 @@ namespace LoLPlayerTracker.Ui.Forms {
             } else {
                 RegionComboBox.SelectedIndex = 0;
             }
+
+            // Set buffered details
+            BufferedSummonerName = GetSummonerName();
+            BufferedRegion = RegionParser.Parse(savedRegion);
 
             // Status
             SetStatus(GameStatus.Idle);
@@ -145,13 +153,15 @@ namespace LoLPlayerTracker.Ui.Forms {
                     SetCurrentGamePanel(null);
                     break;
                 case GameStatus.Loading:
+                    BufferedSummonerName = GetSummonerName();
+                    BufferedRegion = GetRegion();
                     await Delay(3000);
                     this.ShowActivate();
                     break;
                 case GameStatus.Loaded:
                     if (e.CurrentGame != null) {
-                        Task<CurrentGamePanel> currentGamePanelTask = GameFetcher.GetCurrentGamePanelAsync(e.CurrentGame);
-                        Program.DatabaseManager.AddGame(e.CurrentGame);
+                        Task<CurrentGamePanel> currentGamePanelTask = GameFetcher.GetCurrentGamePanelAsync(e.CurrentGame, BufferedSummonerName, BufferedRegion);
+                        Program.DatabaseManager.AddGame(e.CurrentGame, BufferedSummonerName, BufferedRegion);
                         SetCurrentGamePanel(await currentGamePanelTask);
                     }
                     break;

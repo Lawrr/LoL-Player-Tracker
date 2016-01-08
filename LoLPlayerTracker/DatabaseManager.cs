@@ -1,4 +1,5 @@
-﻿using RiotSharp.CurrentGameEndpoint;
+﻿using RiotSharp;
+using RiotSharp.CurrentGameEndpoint;
 using System;
 using System.Data.SQLite;
 using System.IO;
@@ -40,10 +41,10 @@ namespace LoLPlayerTracker {
             return count;
         }
 
-        public async void AddGame(CurrentGame currentGame) {
+        public async void AddGame(CurrentGame currentGame, string summonerName, Region region) {
             await Task.Factory.StartNew(() => {
                 foreach (Participant p in currentGame.Participants) {
-                    if (p.SummonerName != Program.MainForm.GetSummonerName()) {
+                    if (p.SummonerName != summonerName) {
                         if (!KeyValueExists(PLAYERS_TABLE, p.SummonerId.ToString(), currentGame.GameId.ToString())) {
                             InsertRow(PLAYERS_TABLE, p.SummonerId.ToString(), currentGame.GameId.ToString());
                         }

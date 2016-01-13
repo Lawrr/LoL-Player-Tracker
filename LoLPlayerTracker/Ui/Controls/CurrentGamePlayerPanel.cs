@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Windows.Forms;
 
 namespace LoLPlayerTracker.Ui.Controls {
-    public class CurrentGamePlayerPanel : Panel {
+    public class CurrentGamePlayerPanel : UserControl {
         public static Color PLAYED_WITH_BACK_COLOR = Color.FromArgb(0xFF, 0x91, 0xD5, 0xFF);
         public static Color PLAYED_AGAINST_BACK_COLOR = Color.FromArgb(0xFF, 0xE6, 0xAD, 0xAD);
 

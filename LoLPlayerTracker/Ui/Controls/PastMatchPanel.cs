@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 
 namespace LoLPlayerTracker.Ui.Controls {
-    public class PastMatchPanel : Panel {
+    public class PastMatchPanel : UserControl {
         public PastMatchPanel(int gameId) {
             // Set panel properties
             Size = new Size(661, 100);

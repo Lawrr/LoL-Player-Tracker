@@ -1,4 +1,5 @@
-﻿using RiotSharp.CurrentGameEndpoint;
+﻿using RiotSharp;
+using RiotSharp.CurrentGameEndpoint;
 using RiotSharp.LeagueEndpoint;
 using RiotSharp.StaticDataEndpoint;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Windows.Forms;
 
 namespace LoLPlayerTracker.Ui.Controls {
     public class CurrentGamePanel : UserControl {
-        public CurrentGamePanel(CurrentGame currentGame, string summonerName, List<ChampionStatic> championStatics, Dictionary<long, List<League>> leagues) {
+        public CurrentGamePanel(CurrentGame currentGame, string summonerName, RiotSharp.Region region, List<ChampionStatic> championStatics, Dictionary<long, List<League>> leagues) {
             // Set panel properties
             Size = new Size(320, 180);
 
@@ -33,7 +34,7 @@ namespace LoLPlayerTracker.Ui.Controls {
 
                 // Check if participant is self
                 bool isSelf = false;
-                if (p.SummonerName.Replace(" ", "").ToLower() == Program.MainForm.GetSummonerName().Replace(" ", "").ToLower()) {
+                if (p.SummonerName.Replace(" ", "").ToLower() == summonerName.Replace(" ", "").ToLower()) {
                     isSelf = true;
                 }
 
@@ -44,7 +45,7 @@ namespace LoLPlayerTracker.Ui.Controls {
                 }
 
                 // Create player panel
-                CurrentGamePlayerPanel playerPanel = new CurrentGamePlayerPanel(p, isSelf, iconLocation, rankedStats);
+                CurrentGamePlayerPanel playerPanel = new CurrentGamePlayerPanel(p, region, isSelf, iconLocation, rankedStats);
                 playerPanel.Location = new Point(155 * teamIndex, 36 * teamNumPlayers[teamIndex]);
                 teamNumPlayers[teamIndex]++;
 

@@ -1,4 +1,5 @@
-﻿using RiotSharp.CurrentGameEndpoint;
+﻿using RiotSharp;
+using RiotSharp.CurrentGameEndpoint;
 using RiotSharp.LeagueEndpoint;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace LoLPlayerTracker.Ui.Controls {
 
         private Participant Player;
 
-        public CurrentGamePlayerPanel(Participant p, bool isSelf, string iconLocation, List<League> leagues) {
+        public CurrentGamePlayerPanel(Participant p, RiotSharp.Region region, bool isSelf, string iconLocation, List<League> leagues) {
             // Set variables
             Player = p;
 
@@ -95,8 +96,7 @@ namespace LoLPlayerTracker.Ui.Controls {
         }
 
         private void Panel_Click(object sender, EventArgs e) {
-            // TODO stub. Currently just uses the Console.WriteLine in the method to confirm it is working
-            GameFetcher.GetPastMatchPanels(Program.MainForm.GetRegion(), Player.SummonerId);
+            Program.MainForm.SetPastMatches(GameFetcher.GetPastMatchPanels(Program.MainForm.GetRegion(), Player.SummonerId));
         }
     }
 }

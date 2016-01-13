@@ -47,7 +47,7 @@ namespace LoLPlayerTracker {
                 // Get league data
                 Dictionary<long, List<League>> leagues = await Program.RiotApi.GetLeaguesAsync(region, summonerIds);
 
-                currentGamePanel = new CurrentGamePanel(currentGame, summonerName, championStatics, leagues);
+                currentGamePanel = new CurrentGamePanel(currentGame, summonerName, region, championStatics, leagues);
             } else {
                 currentGamePanel = null;
             }

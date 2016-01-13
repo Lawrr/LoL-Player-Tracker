@@ -59,9 +59,12 @@ namespace LoLPlayerTracker {
             SQLiteDataReader reader = Program.DatabaseManager.FindKey(DatabaseManager.PLAYERS_TABLE, summonerId.ToString());
             while (reader.Read()) {
                 Console.WriteLine("Key: " + reader["Key"] + "\tValue: " + reader["Value"]);
-                PastMatchPanel pastMatchPanel = new PastMatchPanel((int) reader["Value"]);
+                PastMatchPanel pastMatchPanel = new PastMatchPanel((int) reader["Value"], Program.MainForm.GetRegion());
                 pastMatchPanel.Location = new System.Drawing.Point(0, pastMatchPanel.Height * panels.Count);
-                panels.Add(pastMatchPanel);
+
+                if (pastMatchPanel.Valid) {
+                    panels.Add(pastMatchPanel);
+                }
             }
             return panels;
         }

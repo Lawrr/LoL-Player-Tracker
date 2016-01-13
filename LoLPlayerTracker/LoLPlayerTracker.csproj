@@ -86,6 +86,9 @@
     </Compile>
     <Compile Include="DatabaseManager.cs" />
     <Compile Include="Exceptions\RegionNotFoundException.cs" />
+    <Compile Include="Ui\Controls\PastMatchPlayerPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Ui\Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

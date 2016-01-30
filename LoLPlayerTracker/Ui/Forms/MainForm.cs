@@ -30,6 +30,7 @@ namespace LoLPlayerTracker.Ui.Forms {
                 RegionComboBox.SelectedIndex = RegionComboBox.Items.IndexOf(savedRegion.ToUpper());
             } else {
                 RegionComboBox.SelectedIndex = 0;
+                savedRegion = RegionComboBox.SelectedItem.ToString();
             }
 
             // Set buffered details

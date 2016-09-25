@@ -163,7 +163,12 @@ namespace LoLPlayerTracker.Ui.Forms {
                     if (e.CurrentGame != null) {
                         Task<CurrentGamePanel> currentGamePanelTask = GameFetcher.GetCurrentGamePanelAsync(e.CurrentGame, BufferedSummonerName, BufferedRegion);
                         Program.DatabaseManager.AddGame(e.CurrentGame, BufferedSummonerName, BufferedRegion);
-                        SetCurrentGamePanel(await currentGamePanelTask);
+                        try {
+                            SetCurrentGamePanel(await currentGamePanelTask);
+                        } catch (RiotSharpException) {
+                            SetStatus(GameStatus.NotFound);
+                            SetCurrentGamePanel(null);
+                        }
                     }
                     break;
                 case GameStatus.NotFound:

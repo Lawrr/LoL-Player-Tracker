@@ -15,11 +15,11 @@ namespace LoLPlayerTracker {
             CurrentGame currentGame;
             
             // Get data on game to load
-            string summonerName = Program.MainForm.GetSummonerName();
-            Region region = Program.MainForm.GetRegion();
-            Platform platform = PlatformParser.Parse(region);
-
             try {
+                string summonerName = Program.MainForm.GetSummonerName();
+                Region region = Program.MainForm.GetRegion();
+                Platform platform = PlatformParser.Parse(region);
+
                 // Load current game data
                 Summoner summoner = await Program.RiotApi.GetSummonerAsync(region, summonerName);
                 currentGame = await Program.RiotApi.GetCurrentGameAsync(platform, summoner.Id);

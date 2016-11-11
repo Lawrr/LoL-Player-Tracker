@@ -142,7 +142,7 @@ namespace LoLPlayerTracker.Ui.Forms {
 
         private async void SearchButton_Click(object sender, EventArgs e) {
             Summoner summoner = await Program.RiotApi.GetSummonerAsync(GetRegion(), SearchTextBox.Text);
-            SetPastMatches(GameFetcher.GetPastMatchPanels(GetRegion(), summoner.Id));
+            SetPastMatches(await GameFetcher.GetPastMatchPanels(GetRegion(), summoner.Id));
         }
 
         private async void GameTracker_GameStatusChanged(object sender, GameStatusChangedEventArgs e) {

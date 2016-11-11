@@ -54,18 +54,24 @@ namespace LoLPlayerTracker {
             return currentGamePanel;
         }
 
-        public static List<PastMatchPanel> GetPastMatchPanels(Region region, long summonerId) {
+        public static async Task<List<PastMatchPanel>> GetPastMatchPanels(Region region, long summonerId) {
             List<PastMatchPanel> panels = new List<PastMatchPanel>();
-            SQLiteDataReader reader = Program.DatabaseManager.FindKey(DatabaseManager.PLAYERS_TABLE, summonerId.ToString());
-            while (reader.Read()) {
-                Console.WriteLine("Key: " + reader["Key"] + "\tValue: " + reader["Value"]);
-                PastMatchPanel pastMatchPanel = new PastMatchPanel((int) reader["Value"], Program.MainForm.GetRegion());
-                pastMatchPanel.Location = new System.Drawing.Point(0, pastMatchPanel.Height * panels.Count);
 
-                if (pastMatchPanel.Valid) {
-                    panels.Add(pastMatchPanel);
+            await Task.Run(() => {
+                SQLiteDataReader reader = Program.DatabaseManager.FindKey(DatabaseManager.PLAYERS_TABLE,
+                    summonerId.ToString());
+                while (reader.Read()) {
+                    Console.WriteLine("Key: " + reader["Key"] + "\tValue: " + reader["Value"]);
+                    PastMatchPanel pastMatchPanel = new PastMatchPanel((int) reader["Value"],
+                        Program.MainForm.GetRegion());
+                    pastMatchPanel.Location = new System.Drawing.Point(0, pastMatchPanel.Height*panels.Count);
+
+                    if (pastMatchPanel.Valid) {
+                        panels.Add(pastMatchPanel);
+                    }
                 }
-            }
+            });
+
             return panels;
         }
     }

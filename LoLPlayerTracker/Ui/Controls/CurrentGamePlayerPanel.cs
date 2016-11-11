@@ -95,8 +95,8 @@ namespace LoLPlayerTracker.Ui.Controls {
             playedAgainstLabel.Click += new EventHandler(Panel_Click);
         }
 
-        private void Panel_Click(object sender, EventArgs e) {
-            Program.MainForm.SetPastMatches(GameFetcher.GetPastMatchPanels(Program.MainForm.GetRegion(), Player.SummonerId));
+        private async void Panel_Click(object sender, EventArgs e) {
+            Program.MainForm.SetPastMatches(await GameFetcher.GetPastMatchPanels(Program.MainForm.GetRegion(), Player.SummonerId));
         }
     }
 }
